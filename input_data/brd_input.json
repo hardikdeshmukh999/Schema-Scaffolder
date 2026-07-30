@@ -1,0 +1,1795 @@
+{
+  "brdSummary": {
+    "projectName": "Employee Onboarding Portal",
+    "businessObjective": "Provide a self-service portal enabling new hires to complete onboarding tasks (profile, documents, equipment, training) while giving HR oversight and control over the process.",
+    "keyCapabilities": [
+      "SSO-based new hire login and onboarding checklist",
+      "Document upload (identity/tax) with HR notification",
+      "Equipment request approval and IT provisioning workflow",
+      "HR tracking of completion status and reminders",
+      "Automated welcome pack email and audit logging",
+      "Role-based access across four user roles",
+      "Integrations with Azure AD, email service, and HRIS"
+    ]
+  },
+  "requirementInventory": [
+    {
+      "reqId": "R-001",
+      "text": "New hires can log in with SSO.",
+      "type": "Functional",
+      "brdSection": "3"
+    },
+    {
+      "reqId": "R-002",
+      "text": "New hires can see a checklist of onboarding tasks with due dates.",
+      "type": "Functional",
+      "brdSection": "3"
+    },
+    {
+      "reqId": "R-003",
+      "text": "New hires upload identity documents (PDF/JPG, max 5MB).",
+      "type": "Functional",
+      "brdSection": "3"
+    },
+    {
+      "reqId": "R-004",
+      "text": "New hires upload tax documents (PDF/JPG, max 5MB).",
+      "type": "Validation",
+      "brdSection": "3"
+    },
+    {
+      "reqId": "R-005",
+      "text": "HR is notified on document upload.",
+      "type": "Functional",
+      "brdSection": "3"
+    },
+    {
+      "reqId": "R-006",
+      "text": "Managers approve equipment requests.",
+      "type": "Functional",
+      "brdSection": "3"
+    },
+    {
+      "reqId": "R-007",
+      "text": "IT provisions accounts on approval of equipment requests.",
+      "type": "Functional",
+      "brdSection": "3"
+    },
+    {
+      "reqId": "R-008",
+      "text": "HR can track completion status across all new hires.",
+      "type": "Functional",
+      "brdSection": "3"
+    },
+    {
+      "reqId": "R-009",
+      "text": "HR can send reminders to new hires.",
+      "type": "Functional",
+      "brdSection": "3"
+    },
+    {
+      "reqId": "R-010",
+      "text": "The system emails a welcome pack.",
+      "type": "Functional",
+      "brdSection": "3"
+    },
+    {
+      "reqId": "R-011",
+      "text": "The system logs all actions for audit.",
+      "type": "Functional",
+      "brdSection": "3"
+    },
+    {
+      "reqId": "R-012",
+      "text": "System supports four user roles: New Hire, HR Coordinator, IT Admin, Manager.",
+      "type": "Role",
+      "brdSection": "2"
+    },
+    {
+      "reqId": "R-013",
+      "text": "Integration with Azure AD for SSO.",
+      "type": "Integration",
+      "brdSection": "4"
+    },
+    {
+      "reqId": "R-014",
+      "text": "Integration with an email service.",
+      "type": "Integration",
+      "brdSection": "4"
+    },
+    {
+      "reqId": "R-015",
+      "text": "Integration with HRIS for employee records.",
+      "type": "Integration",
+      "brdSection": "4"
+    },
+    {
+      "reqId": "R-016",
+      "text": "Role-based access control.",
+      "type": "Non-Functional",
+      "brdSection": "5"
+    },
+    {
+      "reqId": "R-017",
+      "text": "Audit trail capability.",
+      "type": "Non-Functional",
+      "brdSection": "5"
+    },
+    {
+      "reqId": "R-018",
+      "text": "Documents stored securely.",
+      "type": "Non-Functional",
+      "brdSection": "5"
+    },
+    {
+      "reqId": "R-019",
+      "text": "System must handle 200 concurrent new hires.",
+      "type": "Non-Functional",
+      "brdSection": "5"
+    }
+  ],
+  "epics": [
+    {
+      "epicName": "Authentication & Access Control",
+      "description": "SSO login for new hires and role-based access control across all four user roles.",
+      "businessValue": "Ensures secure, seamless access and appropriate permission boundaries for each role.",
+      "brdReferences": [
+        "R-001",
+        "R-012",
+        "R-013",
+        "R-016"
+      ]
+    },
+    {
+      "epicName": "Onboarding Checklist & Tasks",
+      "description": "Checklist of onboarding tasks with due dates visible to new hires.",
+      "businessValue": "Gives new hires clarity on required onboarding steps and deadlines, reducing HR follow-up burden.",
+      "brdReferences": [
+        "R-002"
+      ]
+    },
+    {
+      "epicName": "Document Management",
+      "description": "Upload of identity and tax documents with validation, secure storage, and HR notification.",
+      "businessValue": "Streamlines compliance document collection and ensures HR visibility into submissions.",
+      "brdReferences": [
+        "R-003",
+        "R-004",
+        "R-005",
+        "R-018"
+      ]
+    },
+    {
+      "epicName": "Equipment & Provisioning Workflow",
+      "description": "Manager approval of equipment requests and subsequent IT account provisioning.",
+      "businessValue": "Automates cross-team handoff between Manager and IT ensuring new hires are equipped on day one.",
+      "brdReferences": [
+        "R-006",
+        "R-007"
+      ]
+    },
+    {
+      "epicName": "HR Oversight & Communication",
+      "description": "HR tracking of completion status, sending reminders, and automated welcome pack emails.",
+      "businessValue": "Provides HR with visibility and tools to drive onboarding completion and communicate with new hires.",
+      "brdReferences": [
+        "R-008",
+        "R-009",
+        "R-010"
+      ]
+    },
+    {
+      "epicName": "Audit & Compliance",
+      "description": "System-wide action logging and audit trail capability.",
+      "businessValue": "Supports compliance and traceability of all onboarding actions.",
+      "brdReferences": [
+        "R-011",
+        "R-017"
+      ]
+    },
+    {
+      "epicName": "Integrations",
+      "description": "Integrations with Azure AD, email service, and HRIS for employee records.",
+      "businessValue": "Ensures data consistency and reduces manual duplication across enterprise systems.",
+      "brdReferences": [
+        "R-013",
+        "R-014",
+        "R-015"
+      ]
+    },
+    {
+      "epicName": "Platform Non-Functional Requirements",
+      "description": "Scalability to support 200 concurrent new hires and other non-functional platform qualities.",
+      "businessValue": "Ensures the platform performs reliably during peak onboarding periods (e.g., new hire cohorts).",
+      "brdReferences": [
+        "R-019"
+      ]
+    }
+  ],
+  "stories": [
+    {
+      "id": "S-001",
+      "storyTitle": "IT Account Provisioning on Equipment Approval",
+      "epicName": "Equipment & Provisioning Workflow",
+      "userStory": "As an IT Admin, I want accounts to be provisioned automatically when a manager approves an equipment request, so that new hires receive the necessary system access without manual tracking.",
+      "description": "When a Manager approves an equipment request submitted for a new hire, IT provisions the corresponding accounts. This story covers the trigger (equipment approval) and the resulting provisioning action visible/actionable to IT Admin.",
+      "complexity": "Medium",
+      "storyPoints": 3,
+      "priority": "High",
+      "acceptanceCriteria": [
+        {
+          "id": "AC-001",
+          "criteria": "Given a Manager has an equipment request pending for a new hire, when the Manager approves the request, then IT is triggered to provision the account(s) associated with that request."
+        },
+        {
+          "id": "AC-002",
+          "criteria": "Given an equipment request has not been approved, when IT views provisioning tasks, then no provisioning action is available/triggered for that request."
+        },
+        {
+          "id": "AC-003",
+          "criteria": "Given a Manager rejects an equipment request, when the rejection is recorded, then no account provisioning is triggered."
+        },
+        {
+          "id": "AC-004",
+          "criteria": "Given an equipment request is approved, when provisioning is triggered, then IT Admin can view the provisioning task tied to that specific new hire and request."
+        },
+        {
+          "id": "AC-005",
+          "criteria": "Given only a Manager role can approve equipment requests, when a non-Manager attempts to approve, then the approval is not permitted and provisioning is not triggered."
+        }
+      ],
+      "testCases": [
+        {
+          "testCaseId": "TC-001",
+          "scenario": "Manager approves equipment request, IT provisioning triggered",
+          "preCondition": "",
+          "steps": [
+            "Manager logs in",
+            "Manager opens pending equipment request",
+            "Manager approves request"
+          ],
+          "testData": "",
+          "expectedResult": "Provisioning task created/visible for IT Admin",
+          "testType": "Functional",
+          "priority": "High",
+          "linkedAcceptanceCriteria": "AC-001"
+        },
+        {
+          "testCaseId": "TC-002",
+          "scenario": "Provisioning not triggered for pending (unapproved) request",
+          "preCondition": "",
+          "steps": [
+            "Create equipment request",
+            "Leave request in pending state",
+            "Check IT provisioning queue"
+          ],
+          "testData": "",
+          "expectedResult": "No provisioning task exists for the pending request",
+          "testType": "Negative",
+          "priority": "Medium",
+          "linkedAcceptanceCriteria": "AC-002"
+        },
+        {
+          "testCaseId": "TC-003",
+          "scenario": "Rejected equipment request does not provision account",
+          "preCondition": "",
+          "steps": [
+            "Manager opens equipment request",
+            "Manager rejects request",
+            "Check IT provisioning queue"
+          ],
+          "testData": "",
+          "expectedResult": "No provisioning task created",
+          "testType": "Negative",
+          "priority": "Medium",
+          "linkedAcceptanceCriteria": "AC-003"
+        },
+        {
+          "testCaseId": "TC-004",
+          "scenario": "IT Admin views specific provisioning task after approval",
+          "preCondition": "",
+          "steps": [
+            "Approve equipment request for new hire X",
+            "IT Admin opens provisioning task list"
+          ],
+          "testData": "",
+          "expectedResult": "Task tied to new hire X is visible with correct request reference",
+          "testType": "Functional",
+          "priority": "High",
+          "linkedAcceptanceCriteria": "AC-004"
+        },
+        {
+          "testCaseId": "TC-005",
+          "scenario": "Unauthorized role attempts approval",
+          "preCondition": "",
+          "steps": [
+            "Log in as New Hire or IT Admin",
+            "Attempt to approve an equipment request"
+          ],
+          "testData": "",
+          "expectedResult": "Approval action is blocked/unavailable; no provisioning triggered",
+          "testType": "Negative",
+          "priority": "Medium",
+          "linkedAcceptanceCriteria": "AC-005"
+        },
+        {
+          "testCaseId": "TC-006",
+          "scenario": "Duplicate approval action on same request does not duplicate provisioning",
+          "preCondition": "",
+          "steps": [
+            "Manager approves request",
+            "Attempt to approve the same already-approved request again"
+          ],
+          "testData": "",
+          "expectedResult": "System does not trigger a second provisioning task for the same request",
+          "testType": "Edge Case",
+          "priority": "Low",
+          "linkedAcceptanceCriteria": "AC-001"
+        },
+        {
+          "testCaseId": "TC-007",
+          "scenario": "Account provisioning triggered exactly at the moment of manager approval action",
+          "preCondition": "",
+          "steps": [
+            "Manager opens equipment request in pending state",
+            "Manager clicks approve action",
+            "Observe system state immediately at approval commit"
+          ],
+          "testData": "",
+          "expectedResult": "Account provisioning process is triggered exactly once at the point approval is recorded, not before or after",
+          "testType": "Boundary",
+          "priority": "High",
+          "linkedAcceptanceCriteria": "AC-001"
+        },
+        {
+          "testCaseId": "TC-008",
+          "scenario": "Provisioning for the last equipment request in a batch of multiple pending approvals",
+          "preCondition": "",
+          "steps": [
+            "Create multiple equipment requests for different new hires",
+            "Approve all requests in sequence",
+            "Verify provisioning for the final request in the sequence"
+          ],
+          "testData": "",
+          "expectedResult": "Each approval independently triggers provisioning, including the last item in the batch, with no missed or duplicated provisioning",
+          "testType": "Boundary",
+          "priority": "Medium",
+          "linkedAcceptanceCriteria": "AC-002"
+        },
+        {
+          "testCaseId": "TC-009",
+          "scenario": "Approval and provisioning at day boundary (e.g., 23:59:59 to 00:00:00)",
+          "preCondition": "",
+          "steps": [
+            "Set system clock near midnight boundary",
+            "Manager approves equipment request just before midnight",
+            "Verify provisioning timestamp and account creation date"
+          ],
+          "testData": "",
+          "expectedResult": "Provisioning occurs correctly regardless of date/time boundary crossing, with accurate timestamp recorded",
+          "testType": "Boundary",
+          "priority": "Low",
+          "linkedAcceptanceCriteria": "AC-003"
+        },
+        {
+          "testCaseId": "TC-010",
+          "scenario": "Single equipment request containing the minimum allowed equipment item count triggers provisioning",
+          "preCondition": "",
+          "steps": [
+            "Create equipment request with the minimum permitted number of items (e.g., 1 item)",
+            "Manager approves the request",
+            "Verify account provisioning occurs"
+          ],
+          "testData": "",
+          "expectedResult": "Provisioning is triggered correctly even for the smallest valid equipment request",
+          "testType": "Boundary",
+          "priority": "Medium",
+          "linkedAcceptanceCriteria": "AC-004"
+        },
+        {
+          "testCaseId": "TC-011",
+          "scenario": "Provisioning at maximum allowed equipment items in a single request",
+          "preCondition": "",
+          "steps": [
+            "Create equipment request with maximum allowed number of equipment items",
+            "Manager approves the request",
+            "Verify provisioning completes for all associated access needs"
+          ],
+          "testData": "",
+          "expectedResult": "Provisioning completes successfully for the maximum boundary equipment request size",
+          "testType": "Boundary",
+          "priority": "Medium",
+          "linkedAcceptanceCriteria": "AC-005"
+        }
+      ],
+      "edgeCases": [],
+      "dependencies": [
+        "Is blocked by S-007 (Additional requirements (R-001–R-013)): Provisioning is triggered by manager approval of an equipment request; the request flow and the Manager/IT Admin roles come from the foundation story.",
+        "Is blocked by S-005 (System-Wide Audit Logging of Actions): Approval and provisioning actions must be recorded in the audit trail (R-011), so logging must exist first to avoid rework.",
+        "Relates to EXT-ITSM (IT provisioning target systems / service desk): Actual account creation depends on the downstream IT systems the provisioning task hands off to."
+      ],
+      "assumptions": [],
+      "risks": [],
+      "openQuestions": [],
+      "brdTraceabilityReference": "R-007",
+      "coveredReqIds": [
+        "R-007"
+      ]
+    },
+    {
+      "id": "S-002",
+      "storyTitle": "HR Dashboard for Onboarding Completion Tracking",
+      "epicName": "HR Oversight & Communication",
+      "userStory": "As an HR Coordinator, I want to track onboarding completion status across all new hires, so that I can oversee progress and identify who needs attention.",
+      "description": "HR Coordinator views a consolidated view of completion status of onboarding tasks (profile, documents, equipment, training) for all new hires currently in the portal.",
+      "complexity": "Medium",
+      "storyPoints": 3,
+      "priority": "High",
+      "acceptanceCriteria": [
+        {
+          "id": "AC-001",
+          "criteria": "Given multiple new hires exist in the system, when an HR Coordinator opens the tracking view, then completion status for each new hire's onboarding tasks is displayed."
+        },
+        {
+          "id": "AC-002",
+          "criteria": "Given a new hire has completed all onboarding tasks, when HR views that new hire's status, then it is shown as complete."
+        },
+        {
+          "id": "AC-003",
+          "criteria": "Given a new hire has incomplete tasks, when HR views that new hire's status, then the incomplete items are indicated."
+        },
+        {
+          "id": "AC-004",
+          "criteria": "Given a user is not HR, when that user attempts to access the completion tracking view, then access is not permitted."
+        },
+        {
+          "id": "AC-005",
+          "criteria": "Given no new hires exist yet, when HR opens the tracking view, then an empty state is shown with no errors."
+        }
+      ],
+      "testCases": [
+        {
+          "testCaseId": "TC-001",
+          "scenario": "HR views status across all new hires",
+          "preCondition": "",
+          "steps": [
+            "Log in as HR Coordinator",
+            "Open completion tracking dashboard"
+          ],
+          "testData": "",
+          "expectedResult": "Status for every new hire is listed",
+          "testType": "Functional",
+          "priority": "High",
+          "linkedAcceptanceCriteria": "AC-001"
+        },
+        {
+          "testCaseId": "TC-002",
+          "scenario": "Fully completed new hire shows complete status",
+          "preCondition": "",
+          "steps": [
+            "Select new hire with all tasks done",
+            "View status"
+          ],
+          "testData": "",
+          "expectedResult": "Status marked complete",
+          "testType": "Functional",
+          "priority": "Medium",
+          "linkedAcceptanceCriteria": "AC-002"
+        },
+        {
+          "testCaseId": "TC-003",
+          "scenario": "Partially completed new hire shows incomplete items",
+          "preCondition": "",
+          "steps": [
+            "Select new hire with some tasks pending",
+            "View status"
+          ],
+          "testData": "",
+          "expectedResult": "Pending tasks are indicated distinctly from completed ones",
+          "testType": "Functional",
+          "priority": "Medium",
+          "linkedAcceptanceCriteria": "AC-003"
+        },
+        {
+          "testCaseId": "TC-004",
+          "scenario": "Non-HR role attempts to access dashboard",
+          "preCondition": "",
+          "steps": [
+            "Log in as New Hire",
+            "Attempt to navigate to HR tracking dashboard URL/feature"
+          ],
+          "testData": "",
+          "expectedResult": "Access denied",
+          "testType": "Negative",
+          "priority": "High",
+          "linkedAcceptanceCriteria": "AC-004"
+        },
+        {
+          "testCaseId": "TC-005",
+          "scenario": "Empty state with zero new hires",
+          "preCondition": "",
+          "steps": [
+            "Ensure no new hires in system",
+            "HR opens dashboard"
+          ],
+          "testData": "",
+          "expectedResult": "Dashboard renders without error, indicating no records",
+          "testType": "Edge Case",
+          "priority": "Low",
+          "linkedAcceptanceCriteria": "AC-005"
+        },
+        {
+          "testCaseId": "TC-006",
+          "scenario": "Dashboard displays exactly zero new hires",
+          "preCondition": "",
+          "steps": [
+            "Ensure no new hire records exist in the system",
+            "HR Coordinator opens the onboarding dashboard"
+          ],
+          "testData": "",
+          "expectedResult": "Dashboard shows an empty state with zero new hires, no errors",
+          "testType": "Boundary",
+          "priority": "Medium",
+          "linkedAcceptanceCriteria": "AC-001"
+        },
+        {
+          "testCaseId": "TC-007",
+          "scenario": "Dashboard displays exactly one new hire record",
+          "preCondition": "",
+          "steps": [
+            "Create exactly one new hire record with partial onboarding completion",
+            "HR Coordinator opens the dashboard"
+          ],
+          "testData": "",
+          "expectedResult": "Dashboard correctly displays the single new hire's completion status",
+          "testType": "Boundary",
+          "priority": "Medium",
+          "linkedAcceptanceCriteria": "AC-002"
+        },
+        {
+          "testCaseId": "TC-008",
+          "scenario": "New hire at exactly 0% onboarding completion",
+          "preCondition": "",
+          "steps": [
+            "Create new hire record with no tasks completed",
+            "View dashboard status for this new hire"
+          ],
+          "testData": "",
+          "expectedResult": "Status correctly reflects 0% completion",
+          "testType": "Boundary",
+          "priority": "Medium",
+          "linkedAcceptanceCriteria": "AC-003"
+        },
+        {
+          "testCaseId": "TC-009",
+          "scenario": "New hire at exactly 100% onboarding completion",
+          "preCondition": "",
+          "steps": [
+            "Create new hire record with all onboarding tasks marked complete",
+            "View dashboard status for this new hire"
+          ],
+          "testData": "",
+          "expectedResult": "Status correctly reflects 100% completion",
+          "testType": "Boundary",
+          "priority": "Medium",
+          "linkedAcceptanceCriteria": "AC-004"
+        },
+        {
+          "testCaseId": "TC-010",
+          "scenario": "Dashboard displays the maximum number of new hire records supported",
+          "preCondition": "",
+          "steps": [
+            "Populate system with the maximum supported number of new hire records",
+            "HR Coordinator opens the dashboard"
+          ],
+          "testData": "",
+          "expectedResult": "Dashboard loads and displays all records without truncation or errors at the upper limit",
+          "testType": "Boundary",
+          "priority": "Medium",
+          "linkedAcceptanceCriteria": "AC-005"
+        }
+      ],
+      "edgeCases": [],
+      "dependencies": [
+        "Is blocked by S-007 (Additional requirements (R-001–R-013)): The dashboard aggregates checklist completion and document upload status, which are produced by the foundation story.",
+        "Is blocked by S-008 (Additional requirements (R-015–R-019)): Dashboard access must be restricted to the HR Coordinator role, which requires RBAC enforcement.",
+        "Relates to S-005 (System-Wide Audit Logging of Actions): Dashboard views and exports of new-hire data are auditable actions."
+      ],
+      "assumptions": [],
+      "risks": [],
+      "openQuestions": [],
+      "brdTraceabilityReference": "R-008",
+      "coveredReqIds": [
+        "R-008"
+      ]
+    },
+    {
+      "id": "S-003",
+      "storyTitle": "HR Send Reminders to New Hires",
+      "epicName": "HR Oversight & Communication",
+      "userStory": "As an HR Coordinator, I want to send reminders to new hires, so that they complete outstanding onboarding tasks.",
+      "description": "HR Coordinator can trigger a reminder to one or more new hires regarding their onboarding tasks.",
+      "complexity": "Low",
+      "storyPoints": 2,
+      "priority": "Medium",
+      "acceptanceCriteria": [
+        {
+          "id": "AC-001",
+          "criteria": "Given an HR Coordinator selects a new hire, when they choose to send a reminder, then a reminder is sent to that new hire."
+        },
+        {
+          "id": "AC-002",
+          "criteria": "Given a non-HR user, when they attempt to send a reminder, then the action is not permitted."
+        },
+        {
+          "id": "AC-003",
+          "criteria": "Given no new hire is selected, when HR attempts to send a reminder, then the system does not send a reminder without a valid recipient."
+        }
+      ],
+      "testCases": [
+        {
+          "testCaseId": "TC-001",
+          "scenario": "HR sends reminder to a new hire",
+          "preCondition": "",
+          "steps": [
+            "Log in as HR Coordinator",
+            "Select a new hire",
+            "Click send reminder"
+          ],
+          "testData": "",
+          "expectedResult": "Reminder sent to selected new hire",
+          "testType": "Functional",
+          "priority": "High",
+          "linkedAcceptanceCriteria": "AC-001"
+        },
+        {
+          "testCaseId": "TC-002",
+          "scenario": "Non-HR user attempts to send reminder",
+          "preCondition": "",
+          "steps": [
+            "Log in as Manager",
+            "Attempt to access send reminder function"
+          ],
+          "testData": "",
+          "expectedResult": "Action blocked",
+          "testType": "Negative",
+          "priority": "Medium",
+          "linkedAcceptanceCriteria": "AC-002"
+        },
+        {
+          "testCaseId": "TC-003",
+          "scenario": "Attempt to send reminder with no recipient selected",
+          "preCondition": "",
+          "steps": [
+            "Log in as HR",
+            "Trigger send reminder without selecting a new hire"
+          ],
+          "testData": "",
+          "expectedResult": "System does not send reminder / prevents action",
+          "testType": "Negative",
+          "priority": "Low",
+          "linkedAcceptanceCriteria": "AC-003"
+        },
+        {
+          "testCaseId": "TC-004",
+          "scenario": "Send reminder to the last remaining new hire with outstanding tasks in a batch operation",
+          "preCondition": "",
+          "steps": [
+            "Select all new hires with outstanding tasks for batch reminder",
+            "Trigger send reminders",
+            "Verify reminder delivered to the last hire in the list"
+          ],
+          "testData": "",
+          "expectedResult": "Reminder is sent successfully to every hire including the last one in the batch",
+          "testType": "Boundary",
+          "priority": "Medium",
+          "linkedAcceptanceCriteria": "AC-001"
+        },
+        {
+          "testCaseId": "TC-005",
+          "scenario": "Send reminder when new hire has exactly one outstanding task remaining",
+          "preCondition": "",
+          "steps": [
+            "Set new hire onboarding status to exactly one incomplete task",
+            "HR Coordinator sends reminder"
+          ],
+          "testData": "",
+          "expectedResult": "Reminder is sent referencing the single outstanding task",
+          "testType": "Boundary",
+          "priority": "Low",
+          "linkedAcceptanceCriteria": "AC-002"
+        },
+        {
+          "testCaseId": "TC-006",
+          "scenario": "HR attempts to send a reminder to a new hire with no outstanding tasks (fully onboarded)",
+          "preCondition": "",
+          "steps": [
+            "Select a new hire whose onboarding is fully complete",
+            "HR Coordinator attempts to send a reminder"
+          ],
+          "testData": "",
+          "expectedResult": "System indicates no outstanding tasks or prevents sending an unnecessary reminder",
+          "testType": "Edge Case",
+          "priority": "Medium",
+          "linkedAcceptanceCriteria": "AC-003"
+        },
+        {
+          "testCaseId": "TC-007",
+          "scenario": "HR sends reminder to a new hire whose account has been deactivated after leaving before onboarding completion",
+          "preCondition": "",
+          "steps": [
+            "Deactivate a new hire's account mid-onboarding",
+            "HR Coordinator attempts to send a reminder to this deactivated account"
+          ],
+          "testData": "",
+          "expectedResult": "System handles the deactivated recipient gracefully, without sending to invalid destination",
+          "testType": "Edge Case",
+          "priority": "Medium",
+          "linkedAcceptanceCriteria": "AC-001"
+        },
+        {
+          "testCaseId": "TC-008",
+          "scenario": "HR sends duplicate reminder to same new hire multiple times in immediate succession",
+          "preCondition": "",
+          "steps": [
+            "HR Coordinator sends a reminder to a new hire",
+            "Immediately send another reminder to the same new hire"
+          ],
+          "testData": "",
+          "expectedResult": "System processes each reminder request independently without error, or applies documented duplicate-handling behavior",
+          "testType": "Edge Case",
+          "priority": "Low",
+          "linkedAcceptanceCriteria": "AC-002"
+        }
+      ],
+      "edgeCases": [],
+      "dependencies": [
+        "Is blocked by S-006 (Email Service Integration): Reminders are delivered through the shared email service integration.",
+        "Is blocked by S-007 (Additional requirements (R-001–R-013)): Reminder content depends on checklist tasks and due dates, and targeting depends on the new-hire record.",
+        "Relates to S-002 (HR Dashboard for Onboarding Completion Tracking): Reminder targets are selected from the HR completion-tracking view.",
+        "Relates to S-005 (System-Wide Audit Logging of Actions): Each reminder sent must be written to the audit trail."
+      ],
+      "assumptions": [],
+      "risks": [],
+      "openQuestions": [],
+      "brdTraceabilityReference": "R-009",
+      "coveredReqIds": [
+        "R-009"
+      ]
+    },
+    {
+      "id": "S-004",
+      "storyTitle": "Automated Welcome Pack Email",
+      "epicName": "HR Oversight & Communication",
+      "userStory": "As a New Hire, I want to receive a welcome pack email, so that I have introductory onboarding information.",
+      "description": "The system emails a welcome pack. This story covers the system triggering and sending this welcome email.",
+      "complexity": "Low",
+      "storyPoints": 2,
+      "priority": "Medium",
+      "acceptanceCriteria": [
+        {
+          "id": "AC-001",
+          "criteria": "Given a new hire is onboarded into the system, when the onboarding process is initiated, then the system emails a welcome pack to the new hire."
+        },
+        {
+          "id": "AC-002",
+          "criteria": "Given the welcome pack email is sent, when it is delivered, then it is sent to the new hire's registered email address."
+        },
+        {
+          "id": "AC-003",
+          "criteria": "Given the email service is unavailable, when the system attempts to send the welcome pack, then the email is not sent and the failure is not silently treated as success."
+        }
+      ],
+      "testCases": [
+        {
+          "testCaseId": "TC-001",
+          "scenario": "Welcome pack sent on new hire onboarding",
+          "preCondition": "",
+          "steps": [
+            "New hire record created/onboarded",
+            "Trigger welcome pack process"
+          ],
+          "testData": "",
+          "expectedResult": "Welcome pack email sent to new hire",
+          "testType": "Functional",
+          "priority": "High",
+          "linkedAcceptanceCriteria": "AC-001"
+        },
+        {
+          "testCaseId": "TC-002",
+          "scenario": "Welcome pack sent to correct address",
+          "preCondition": "",
+          "steps": [
+            "Onboard new hire with known email",
+            "Check delivered email recipient"
+          ],
+          "testData": "",
+          "expectedResult": "Email received at registered address",
+          "testType": "Functional",
+          "priority": "Medium",
+          "linkedAcceptanceCriteria": "AC-002"
+        },
+        {
+          "testCaseId": "TC-003",
+          "scenario": "Email service unavailable during send attempt",
+          "preCondition": "",
+          "steps": [
+            "Simulate email service outage",
+            "Trigger welcome pack send"
+          ],
+          "testData": "",
+          "expectedResult": "Send fails and is not marked as successfully delivered",
+          "testType": "Negative",
+          "priority": "Medium",
+          "linkedAcceptanceCriteria": "AC-003"
+        },
+        {
+          "testCaseId": "TC-004",
+          "scenario": "Welcome pack email sent at the earliest possible trigger point after new hire record creation",
+          "preCondition": "",
+          "steps": [
+            "Create new hire record",
+            "Observe timing of welcome pack email dispatch immediately after creation"
+          ],
+          "testData": "",
+          "expectedResult": "Welcome pack email is triggered at the defined point without delay beyond expected boundary",
+          "testType": "Boundary",
+          "priority": "Medium",
+          "linkedAcceptanceCriteria": "AC-001"
+        },
+        {
+          "testCaseId": "TC-005",
+          "scenario": "Welcome pack email content at minimum required field population",
+          "preCondition": "",
+          "steps": [
+            "Create new hire record with only the minimum required fields populated",
+            "Trigger welcome pack email"
+          ],
+          "testData": "",
+          "expectedResult": "Email is generated and sent correctly using only minimum available data",
+          "testType": "Boundary",
+          "priority": "Medium",
+          "linkedAcceptanceCriteria": "AC-002"
+        },
+        {
+          "testCaseId": "TC-006",
+          "scenario": "Welcome pack email triggered for new hire with an email address containing edge-case valid formatting (e.g., plus-addressing, subdomains)",
+          "preCondition": "",
+          "steps": [
+            "Create new hire record with an unusual but valid email format",
+            "Trigger welcome pack email"
+          ],
+          "testData": "",
+          "expectedResult": "Email is delivered successfully to the valid edge-case address",
+          "testType": "Edge Case",
+          "priority": "Low",
+          "linkedAcceptanceCriteria": "AC-003"
+        },
+        {
+          "testCaseId": "TC-007",
+          "scenario": "Welcome pack email triggered twice due to duplicate new hire record creation event",
+          "preCondition": "",
+          "steps": [
+            "Simulate a duplicate creation event firing twice for the same new hire",
+            "Observe email dispatch behavior"
+          ],
+          "testData": "",
+          "expectedResult": "System handles duplicate trigger gracefully, avoiding unintended duplicate emails or per documented behavior",
+          "testType": "Edge Case",
+          "priority": "Medium",
+          "linkedAcceptanceCriteria": "AC-001"
+        }
+      ],
+      "edgeCases": [],
+      "dependencies": [
+        "Is blocked by S-006 (Email Service Integration): The welcome pack is delivered through the shared email service integration.",
+        "Is blocked by S-007 (Additional requirements (R-001–R-013)): The send trigger depends on the new-hire record and onboarding start event created in the foundation story.",
+        "Relates to S-005 (System-Wide Audit Logging of Actions): Welcome pack sends must be recorded in the audit trail.",
+        "Relates to EXT-CONTENT (Approved welcome pack content and email template): HR must supply final template copy and attachments before the email can be released."
+      ],
+      "assumptions": [],
+      "risks": [],
+      "openQuestions": [],
+      "brdTraceabilityReference": "R-010",
+      "coveredReqIds": [
+        "R-010"
+      ]
+    },
+    {
+      "id": "S-005",
+      "storyTitle": "System-Wide Audit Logging of Actions",
+      "epicName": "Audit & Compliance",
+      "userStory": "As an HR Coordinator (or authorized auditor), I want all actions in the system logged, so that there is an audit trail for compliance purposes.",
+      "description": "The system logs all actions performed within the portal (e.g., document uploads, approvals, provisioning, reminders, status changes) to support an audit trail capability.",
+      "complexity": "Medium",
+      "storyPoints": 3,
+      "priority": "High",
+      "acceptanceCriteria": [
+        {
+          "id": "AC-001",
+          "criteria": "Given any action is performed in the system (e.g., upload, approval, provisioning, reminder sent), when the action completes, then it is recorded in the audit log."
+        },
+        {
+          "id": "AC-002",
+          "criteria": "Given an audit log entry is created, when it is stored, then it includes the action performed for traceability."
+        },
+        {
+          "id": "AC-003",
+          "criteria": "Given the audit trail exists, when queried, then logged actions are retrievable in the order they occurred."
+        },
+        {
+          "id": "AC-004",
+          "criteria": "Given an action fails to complete, when the failure occurs, then the system does not log it as a successful action."
+        }
+      ],
+      "testCases": [
+        {
+          "testCaseId": "TC-001",
+          "scenario": "Document upload action is logged",
+          "preCondition": "",
+          "steps": [
+            "New hire uploads a document",
+            "Check audit log"
+          ],
+          "testData": "",
+          "expectedResult": "Upload action appears in audit log",
+          "testType": "Functional",
+          "priority": "High",
+          "linkedAcceptanceCriteria": "AC-001"
+        },
+        {
+          "testCaseId": "TC-002",
+          "scenario": "Equipment approval action is logged",
+          "preCondition": "",
+          "steps": [
+            "Manager approves equipment request",
+            "Check audit log"
+          ],
+          "testData": "",
+          "expectedResult": "Approval action appears in audit log",
+          "testType": "Functional",
+          "priority": "High",
+          "linkedAcceptanceCriteria": "AC-001"
+        },
+        {
+          "testCaseId": "TC-003",
+          "scenario": "Reminder sent action is logged",
+          "preCondition": "",
+          "steps": [
+            "HR sends reminder",
+            "Check audit log"
+          ],
+          "testData": "",
+          "expectedResult": "Reminder action appears in audit log",
+          "testType": "Functional",
+          "priority": "Medium",
+          "linkedAcceptanceCriteria": "AC-001"
+        },
+        {
+          "testCaseId": "TC-004",
+          "scenario": "Audit log entry contains action detail",
+          "preCondition": "",
+          "steps": [
+            "Perform any logged action",
+            "Inspect the corresponding audit entry"
+          ],
+          "testData": "",
+          "expectedResult": "Entry includes description of the action performed",
+          "testType": "Functional",
+          "priority": "Medium",
+          "linkedAcceptanceCriteria": "AC-002"
+        },
+        {
+          "testCaseId": "TC-005",
+          "scenario": "Audit entries retrievable in chronological order",
+          "preCondition": "",
+          "steps": [
+            "Perform multiple actions in sequence",
+            "Query audit trail"
+          ],
+          "testData": "",
+          "expectedResult": "Entries returned in the order actions occurred",
+          "testType": "Regression",
+          "priority": "Medium",
+          "linkedAcceptanceCriteria": "AC-003"
+        },
+        {
+          "testCaseId": "TC-006",
+          "scenario": "Failed action is not logged as successful",
+          "preCondition": "",
+          "steps": [
+            "Trigger an action that fails (e.g., failed provisioning)",
+            "Check audit log"
+          ],
+          "testData": "",
+          "expectedResult": "Log reflects failure, not falsely marked success",
+          "testType": "Negative",
+          "priority": "Medium",
+          "linkedAcceptanceCriteria": "AC-004"
+        },
+        {
+          "testCaseId": "TC-007",
+          "scenario": "Audit log captures the very first action performed after system initialization",
+          "preCondition": "",
+          "steps": [
+            "Initialize system with empty audit log",
+            "Perform a single user action",
+            "Verify log entry for this first action"
+          ],
+          "testData": "",
+          "expectedResult": "First action is logged accurately with no missing initial entry",
+          "testType": "Boundary",
+          "priority": "Medium",
+          "linkedAcceptanceCriteria": "AC-001"
+        },
+        {
+          "testCaseId": "TC-008",
+          "scenario": "Audit log reaches maximum supported volume of log entries",
+          "preCondition": "",
+          "steps": [
+            "Populate audit log to the maximum supported number of entries",
+            "Perform an additional action",
+            "Verify new entry is logged"
+          ],
+          "testData": "",
+          "expectedResult": "System continues to log actions correctly at maximum capacity without data loss",
+          "testType": "Boundary",
+          "priority": "Medium",
+          "linkedAcceptanceCriteria": "AC-002"
+        },
+        {
+          "testCaseId": "TC-009",
+          "scenario": "Two actions performed by different users at the exact same timestamp are both logged distinctly",
+          "preCondition": "",
+          "steps": [
+            "Simulate two concurrent actions from different user roles at identical timestamps",
+            "Review audit log entries for both actions"
+          ],
+          "testData": "",
+          "expectedResult": "Both actions are logged as separate distinct entries without overwriting each other",
+          "testType": "Edge Case",
+          "priority": "High",
+          "linkedAcceptanceCriteria": "AC-003"
+        },
+        {
+          "testCaseId": "TC-010",
+          "scenario": "Action performed by a user whose account is deleted immediately after the action",
+          "preCondition": "",
+          "steps": [
+            "User performs a logged action",
+            "Delete the user's account immediately after",
+            "Review audit log entry for the action"
+          ],
+          "testData": "",
+          "expectedResult": "Audit log entry for the action remains intact and correctly attributed despite subsequent account deletion",
+          "testType": "Edge Case",
+          "priority": "High",
+          "linkedAcceptanceCriteria": "AC-004"
+        }
+      ],
+      "edgeCases": [],
+      "dependencies": [
+        "Is blocked by S-007 (Additional requirements (R-001–R-013)): Audit entries must record the acting user and role, which requires the authenticated SSO session and role model.",
+        "Relates to S-008 (Additional requirements (R-015–R-019)): Audit log retention and access permissions fall under the secure-storage and RBAC work."
+      ],
+      "assumptions": [],
+      "risks": [],
+      "openQuestions": [],
+      "brdTraceabilityReference": "R-011, R-017",
+      "coveredReqIds": [
+        "R-011",
+        "R-017"
+      ]
+    },
+    {
+      "id": "S-006",
+      "storyTitle": "Email Service Integration",
+      "epicName": "Integrations",
+      "userStory": "As a system, I want to integrate with an email service, so that notifications and communications (e.g., welcome pack, reminders) can be delivered to users.",
+      "description": "The portal integrates with an external email service to send system-generated emails such as welcome packs and reminders.",
+      "complexity": "Low",
+      "storyPoints": 2,
+      "priority": "Medium",
+      "acceptanceCriteria": [
+        {
+          "id": "AC-001",
+          "criteria": "Given the system needs to send an email (e.g., welcome pack, reminder), when the send is triggered, then the request is routed through the integrated email service."
+        },
+        {
+          "id": "AC-002",
+          "criteria": "Given the email service integration is configured, when a message is sent, then the email service acknowledges receipt of the send request."
+        },
+        {
+          "id": "AC-003",
+          "criteria": "Given the email service is unreachable, when the system attempts to send via the integration, then the system detects the failure rather than assuming success."
+        }
+      ],
+      "testCases": [
+        {
+          "testCaseId": "TC-001",
+          "scenario": "Email routed through integrated service",
+          "preCondition": "",
+          "steps": [
+            "Trigger a system email (e.g., reminder)",
+            "Verify request is sent to configured email service"
+          ],
+          "testData": "",
+          "expectedResult": "Email service receives the send request",
+          "testType": "Integration",
+          "priority": "High",
+          "linkedAcceptanceCriteria": "AC-001"
+        },
+        {
+          "testCaseId": "TC-002",
+          "scenario": "Email service acknowledges successful send",
+          "preCondition": "",
+          "steps": [
+            "Send a valid email via integration",
+            "Check for acknowledgment/response from email service"
+          ],
+          "testData": "",
+          "expectedResult": "Acknowledgment received confirming send",
+          "testType": "Integration",
+          "priority": "Medium",
+          "linkedAcceptanceCriteria": "AC-002"
+        },
+        {
+          "testCaseId": "TC-003",
+          "scenario": "Email service unreachable",
+          "preCondition": "",
+          "steps": [
+            "Simulate email service downtime",
+            "Trigger system email send"
+          ],
+          "testData": "",
+          "expectedResult": "System detects failure and does not assume delivery",
+          "testType": "Negative",
+          "priority": "Medium",
+          "linkedAcceptanceCriteria": "AC-003"
+        },
+        {
+          "testCaseId": "TC-004",
+          "scenario": "Email service integration handles email payload at maximum allowed size/content length",
+          "preCondition": "",
+          "steps": [
+            "Generate an email notification with content at the maximum supported size",
+            "Send via integrated email service",
+            "Verify delivery"
+          ],
+          "testData": "",
+          "expectedResult": "Email is sent successfully at the maximum boundary size without truncation or failure",
+          "testType": "Boundary",
+          "priority": "Medium",
+          "linkedAcceptanceCriteria": "AC-001"
+        },
+        {
+          "testCaseId": "TC-005",
+          "scenario": "Email service integration processes the last email in a queued batch of notifications",
+          "preCondition": "",
+          "steps": [
+            "Queue multiple notification emails for sending",
+            "Process the batch through the email service integration",
+            "Verify the last email in the queue is sent"
+          ],
+          "testData": "",
+          "expectedResult": "All emails including the last queued item are sent successfully",
+          "testType": "Boundary",
+          "priority": "Medium",
+          "linkedAcceptanceCriteria": "AC-002"
+        },
+        {
+          "testCaseId": "TC-006",
+          "scenario": "Email service integration temporarily unavailable during a send attempt then recovers",
+          "preCondition": "",
+          "steps": [
+            "Simulate email service outage",
+            "Attempt to send a notification during outage",
+            "Restore email service availability",
+            "Verify subsequent send behavior"
+          ],
+          "testData": "",
+          "expectedResult": "System handles the temporary unavailability gracefully and successfully sends once service is restored, per documented retry/queue behavior",
+          "testType": "Edge Case",
+          "priority": "High",
+          "linkedAcceptanceCriteria": "AC-003"
+        },
+        {
+          "testCaseId": "TC-007",
+          "scenario": "Email service integration receives a delayed or out-of-order delivery confirmation",
+          "preCondition": "",
+          "steps": [
+            "Send a notification via the email service",
+            "Simulate delayed delivery confirmation response from the service",
+            "Verify system state and status tracking"
+          ],
+          "testData": "",
+          "expectedResult": "System correctly reconciles the delayed confirmation without corrupting notification status",
+          "testType": "Edge Case",
+          "priority": "Medium",
+          "linkedAcceptanceCriteria": "AC-001"
+        }
+      ],
+      "edgeCases": [],
+      "dependencies": [
+        "Is blocked by EXT-EMAIL (Email service vendor account, API keys and sandbox (R-014)): Integration cannot be developed or tested without vendor credentials, a sandbox and a verified sending domain."
+      ],
+      "assumptions": [],
+      "risks": [],
+      "openQuestions": [],
+      "brdTraceabilityReference": "R-014",
+      "coveredReqIds": [
+        "R-014"
+      ]
+    },
+    {
+      "id": "S-007",
+      "storyTitle": "Additional requirements (R-001–R-013)",
+      "epicName": "Authentication & Access Control",
+      "userStory": "As the delivery team, we must address requirements R-001, R-002, R-003, R-004, R-005, R-006, R-012, R-013 that automated detailing did not expand into full stories, so that no BRD requirement is dropped.",
+      "description": "Deterministic catch-all guaranteeing coverage of: New hires can log in with SSO. | New hires can see a checklist of onboarding tasks with due dates. | New hires upload identity documents (PDF/JPG, max 5MB). | New hires upload tax documents (PDF/JPG, max 5MB). | HR is notified on document upload. | Managers approve equipment requests. | System supports four user roles: New Hire, HR Coordinator, IT Admin, Manager. | Integration with Azure AD for SSO.",
+      "complexity": "Medium",
+      "storyPoints": 3,
+      "priority": "Medium",
+      "acceptanceCriteria": [
+        {
+          "id": "AC-001",
+          "criteria": "Each covered requirement (R-001, R-002, R-003, R-004, R-005, R-006, R-012, R-013) is reviewed, sliced into a proper vertical-slice story, and satisfied."
+        }
+      ],
+      "testCases": [
+        {
+          "testCaseId": "TC-001",
+          "scenario": "Verify every covered requirement is addressed once re-sliced",
+          "preCondition": "",
+          "steps": [
+            "Review each covered requirement",
+            "Confirm an implementing story exists and is satisfied"
+          ],
+          "testData": "",
+          "expectedResult": "All covered requirements are satisfied by real stories",
+          "testType": "Functional",
+          "priority": "Medium",
+          "linkedAcceptanceCriteria": "AC-001"
+        },
+        {
+          "testCaseId": "TC-002",
+          "scenario": "New hire attempts SSO login with invalid Azure AD credentials",
+          "preCondition": "",
+          "steps": [
+            "Navigate to login page",
+            "Enter invalid Azure AD credentials",
+            "Attempt login"
+          ],
+          "testData": "",
+          "expectedResult": "Login is rejected with an appropriate error message; access is denied",
+          "testType": "Negative",
+          "priority": "High",
+          "linkedAcceptanceCriteria": "AC-001"
+        },
+        {
+          "testCaseId": "TC-003",
+          "scenario": "New hire uploads identity document exceeding 5MB size limit",
+          "preCondition": "",
+          "steps": [
+            "Select an identity document file larger than 5MB",
+            "Attempt to upload via the document upload feature"
+          ],
+          "testData": "",
+          "expectedResult": "System rejects the upload with a clear error indicating the file exceeds the 5MB limit",
+          "testType": "Negative",
+          "priority": "High",
+          "linkedAcceptanceCriteria": "AC-001"
+        },
+        {
+          "testCaseId": "TC-004",
+          "scenario": "New hire uploads tax document in an unsupported file format (e.g., .docx)",
+          "preCondition": "",
+          "steps": [
+            "Select a tax document file in .docx format",
+            "Attempt to upload"
+          ],
+          "testData": "",
+          "expectedResult": "System rejects the upload, indicating only PDF/JPG formats are supported",
+          "testType": "Negative",
+          "priority": "High",
+          "linkedAcceptanceCriteria": "AC-001"
+        },
+        {
+          "testCaseId": "TC-005",
+          "scenario": "Manager attempts to approve an equipment request without proper manager role assigned",
+          "preCondition": "",
+          "steps": [
+            "Log in as a user without Manager role",
+            "Attempt to approve a pending equipment request"
+          ],
+          "testData": "",
+          "expectedResult": "System denies the approval action due to insufficient role permissions",
+          "testType": "Negative",
+          "priority": "High",
+          "linkedAcceptanceCriteria": "AC-001"
+        },
+        {
+          "testCaseId": "TC-006",
+          "scenario": "Identity document upload at exactly 5MB size limit",
+          "preCondition": "",
+          "steps": [
+            "Select an identity document file exactly at 5MB",
+            "Attempt to upload"
+          ],
+          "testData": "",
+          "expectedResult": "Upload is accepted as it meets the maximum allowed boundary size of 5MB",
+          "testType": "Boundary",
+          "priority": "High",
+          "linkedAcceptanceCriteria": "AC-001"
+        },
+        {
+          "testCaseId": "TC-007",
+          "scenario": "Tax document upload at exactly 5MB size limit",
+          "preCondition": "",
+          "steps": [
+            "Select a tax document file exactly at 5MB",
+            "Attempt to upload"
+          ],
+          "testData": "",
+          "expectedResult": "Upload is accepted at the exact boundary limit of 5MB",
+          "testType": "Boundary",
+          "priority": "High",
+          "linkedAcceptanceCriteria": "AC-001"
+        },
+        {
+          "testCaseId": "TC-008",
+          "scenario": "Checklist displays task with due date exactly on the current date",
+          "preCondition": "",
+          "steps": [
+            "Create onboarding task with due date set to today",
+            "New hire views checklist"
+          ],
+          "testData": "",
+          "expectedResult": "Task is displayed correctly with today's date shown as the due date, without being marked overdue incorrectly",
+          "testType": "Boundary",
+          "priority": "Medium",
+          "linkedAcceptanceCriteria": "AC-001"
+        },
+        {
+          "testCaseId": "TC-009",
+          "scenario": "System supports exactly all four defined user roles without allowing a fifth undefined role",
+          "preCondition": "",
+          "steps": [
+            "Attempt to assign a user to each of the four defined roles (New Hire, HR Coordinator, IT Admin, Manager)",
+            "Attempt to create/assign an undefined fifth role"
+          ],
+          "testData": "",
+          "expectedResult": "All four defined roles function correctly; assignment of an undefined role is not permitted",
+          "testType": "Boundary",
+          "priority": "Medium",
+          "linkedAcceptanceCriteria": "AC-001"
+        },
+        {
+          "testCaseId": "TC-010",
+          "scenario": "HR notification triggered when two documents (identity and tax) are uploaded simultaneously",
+          "preCondition": "",
+          "steps": [
+            "New hire uploads identity and tax documents at the same time",
+            "Observe HR notification behavior"
+          ],
+          "testData": "",
+          "expectedResult": "HR receives notification(s) correctly reflecting both uploads without loss or duplication",
+          "testType": "Edge Case",
+          "priority": "Medium",
+          "linkedAcceptanceCriteria": "AC-001"
+        },
+        {
+          "testCaseId": "TC-011",
+          "scenario": "New hire uploads a document with a file name containing special characters or maximum length",
+          "preCondition": "",
+          "steps": [
+            "Select a document file with an unusually long or special-character file name (still valid PDF/JPG under 5MB)",
+            "Attempt upload"
+          ],
+          "testData": "",
+          "expectedResult": "System accepts the valid file regardless of unusual file name, or handles it per documented file-name constraints",
+          "testType": "Edge Case",
+          "priority": "Low",
+          "linkedAcceptanceCriteria": "AC-001"
+        },
+        {
+          "testCaseId": "TC-012",
+          "scenario": "Azure AD SSO session expires mid-checklist interaction",
+          "preCondition": "",
+          "steps": [
+            "New hire logs in via SSO and begins viewing checklist",
+            "Allow SSO session/token to expire while on the checklist page",
+            "Attempt to interact with the checklist"
+          ],
+          "testData": "",
+          "expectedResult": "System detects expired session and requires re-authentication before further action",
+          "testType": "Edge Case",
+          "priority": "Medium",
+          "linkedAcceptanceCriteria": "AC-001"
+        }
+      ],
+      "edgeCases": [],
+      "dependencies": [
+        "Is blocked by EXT-AZUREAD (Azure AD tenant + app registration (R-013)): SSO login cannot be built or tested without a configured Azure AD tenant, app registration and test accounts."
+      ],
+      "assumptions": [],
+      "risks": [],
+      "openQuestions": [],
+      "brdTraceabilityReference": "R-001, R-002, R-003, R-004, R-005, R-006, R-012, R-013",
+      "coveredReqIds": [
+        "R-001",
+        "R-002",
+        "R-003",
+        "R-004",
+        "R-005",
+        "R-006",
+        "R-012",
+        "R-013"
+      ],
+      "synthetic": true
+    },
+    {
+      "id": "S-008",
+      "storyTitle": "Additional requirements (R-015–R-019)",
+      "epicName": "Authentication & Access Control",
+      "userStory": "As the delivery team, we must address requirements R-015, R-016, R-018, R-019 that automated detailing did not expand into full stories, so that no BRD requirement is dropped.",
+      "description": "Deterministic catch-all guaranteeing coverage of: Integration with HRIS for employee records. | Role-based access control. | Documents stored securely. | System must handle 200 concurrent new hires.",
+      "complexity": "Medium",
+      "storyPoints": 3,
+      "priority": "Medium",
+      "acceptanceCriteria": [
+        {
+          "id": "AC-001",
+          "criteria": "Each covered requirement (R-015, R-016, R-018, R-019) is reviewed, sliced into a proper vertical-slice story, and satisfied."
+        }
+      ],
+      "testCases": [
+        {
+          "testCaseId": "TC-001",
+          "scenario": "Verify every covered requirement is addressed once re-sliced",
+          "preCondition": "",
+          "steps": [
+            "Review each covered requirement",
+            "Confirm an implementing story exists and is satisfied"
+          ],
+          "testData": "",
+          "expectedResult": "All covered requirements are satisfied by real stories",
+          "testType": "Functional",
+          "priority": "Medium",
+          "linkedAcceptanceCriteria": "AC-001"
+        },
+        {
+          "testCaseId": "TC-002",
+          "scenario": "HRIS integration fails to retrieve employee record due to service unavailability",
+          "preCondition": "",
+          "steps": [
+            "Simulate HRIS service downtime",
+            "Attempt to sync/retrieve employee record"
+          ],
+          "testData": "",
+          "expectedResult": "System handles the failure gracefully with an appropriate error, without corrupting existing data",
+          "testType": "Negative",
+          "priority": "High",
+          "linkedAcceptanceCriteria": "AC-001"
+        },
+        {
+          "testCaseId": "TC-003",
+          "scenario": "User attempts to access a feature outside their assigned role's permissions",
+          "preCondition": "",
+          "steps": [
+            "Log in as a user with a specific role (e.g., New Hire)",
+            "Attempt to access an HR Coordinator-only or IT Admin-only feature"
+          ],
+          "testData": "",
+          "expectedResult": "Access is denied per role-based access control rules",
+          "testType": "Negative",
+          "priority": "High",
+          "linkedAcceptanceCriteria": "AC-001"
+        },
+        {
+          "testCaseId": "TC-004",
+          "scenario": "Attempt to access stored documents without proper authorization",
+          "preCondition": "",
+          "steps": [
+            "Log in as a user without document access permissions",
+            "Attempt to open/download a stored document"
+          ],
+          "testData": "",
+          "expectedResult": "Access is denied and the document remains securely inaccessible to unauthorized users",
+          "testType": "Negative",
+          "priority": "High",
+          "linkedAcceptanceCriteria": "AC-001"
+        },
+        {
+          "testCaseId": "TC-005",
+          "scenario": "System handles exactly 200 concurrent new hires as per stated capacity",
+          "preCondition": "",
+          "steps": [
+            "Simulate exactly 200 concurrent new hire sessions/actions",
+            "Monitor system performance and stability"
+          ],
+          "testData": "",
+          "expectedResult": "System handles all 200 concurrent new hires correctly without errors or degradation, meeting the stated capacity",
+          "testType": "Boundary",
+          "priority": "High",
+          "linkedAcceptanceCriteria": "AC-001"
+        },
+        {
+          "testCaseId": "TC-006",
+          "scenario": "System behavior at 201 concurrent new hires, one beyond stated supported limit",
+          "preCondition": "",
+          "steps": [
+            "Simulate 201 concurrent new hire sessions/actions",
+            "Observe system behavior beyond the stated 200 boundary"
+          ],
+          "testData": "",
+          "expectedResult": "System behavior at the boundary-plus-one is observed and documented; any degradation or handling is per system design beyond stated capacity",
+          "testType": "Boundary",
+          "priority": "Medium",
+          "linkedAcceptanceCriteria": "AC-001"
+        },
+        {
+          "testCaseId": "TC-007",
+          "scenario": "HRIS integration returns a partial or malformed employee record",
+          "preCondition": "",
+          "steps": [
+            "Simulate HRIS returning an incomplete/malformed employee record",
+            "Attempt to sync this record into the system"
+          ],
+          "testData": "",
+          "expectedResult": "System detects the malformed data and handles it without corrupting other records",
+          "testType": "Edge Case",
+          "priority": "Medium",
+          "linkedAcceptanceCriteria": "AC-001"
+        },
+        {
+          "testCaseId": "TC-008",
+          "scenario": "Concurrent access attempts by two different roles to the same stored document simultaneously",
+          "preCondition": "",
+          "steps": [
+            "Two users with different roles attempt to access the same stored document at the same time",
+            "Observe access control and document integrity behavior"
+          ],
+          "testData": "",
+          "expectedResult": "Access control is enforced correctly per role for each simultaneous request without document corruption",
+          "testType": "Edge Case",
+          "priority": "Medium",
+          "linkedAcceptanceCriteria": "AC-001"
+        }
+      ],
+      "edgeCases": [],
+      "dependencies": [
+        "Is blocked by S-007 (Additional requirements (R-001–R-013)): RBAC enforcement needs the four roles and the authenticated SSO session established in the foundation story.",
+        "Is blocked by EXT-HRIS (HRIS API access and employee record schema (R-015)): Employee record sync cannot be implemented without HRIS endpoint access, credentials and an agreed field mapping."
+      ],
+      "assumptions": [],
+      "risks": [],
+      "openQuestions": [],
+      "brdTraceabilityReference": "R-015, R-016, R-018, R-019",
+      "coveredReqIds": [
+        "R-015",
+        "R-016",
+        "R-018",
+        "R-019"
+      ],
+      "synthetic": true
+    }
+  ],
+  "gaps": [
+    {
+      "gapId": "G-001",
+      "brdSection": "3",
+      "description": "BRD does not specify what onboarding task types beyond documents/equipment/training make up the checklist, nor who creates/configures checklist templates.",
+      "impact": "",
+      "severity": "Medium",
+      "clarificationQuestion": "Who defines/configures the onboarding checklist items and due dates per new hire — is it HR-configurable per role/department, or a fixed template?",
+      "recommendedOwner": "",
+      "status": "Open"
+    },
+    {
+      "gapId": "G-002",
+      "brdSection": "3",
+      "description": "BRD does not specify what happens if a document upload fails validation (wrong format/size) - only that format/size limits exist.",
+      "impact": "",
+      "severity": "Low",
+      "clarificationQuestion": "What error handling/user feedback is expected when a document upload fails validation?",
+      "recommendedOwner": "",
+      "status": "Open"
+    },
+    {
+      "gapId": "G-003",
+      "brdSection": "3",
+      "description": "BRD does not specify equipment request creation - only approval. Unclear who initiates equipment requests (new hire, manager, or auto-generated).",
+      "impact": "",
+      "severity": "Medium",
+      "clarificationQuestion": "Who initiates/creates the equipment request that the Manager approves?",
+      "recommendedOwner": "",
+      "status": "Open"
+    },
+    {
+      "gapId": "G-004",
+      "brdSection": "1",
+      "description": "BRD mentions 'training' as an onboarding task category in the objective but provides no functional requirements for training management.",
+      "impact": "",
+      "severity": "Medium",
+      "clarificationQuestion": "What training-related functionality, if any, is required for new hires beyond the general checklist?",
+      "recommendedOwner": "",
+      "status": "Open"
+    },
+    {
+      "gapId": "G-005",
+      "brdSection": "4",
+      "description": "BRD does not define what HRIS integration entails beyond 'employee records' - e.g., is it read-only sync, bidirectional, or triggers onboarding record creation?",
+      "impact": "",
+      "severity": "Medium",
+      "clarificationQuestion": "What data flows are required between the portal and HRIS (read-only lookup, write-back, real-time sync)?",
+      "recommendedOwner": "",
+      "status": "Open"
+    },
+    {
+      "gapId": "G-006",
+      "brdSection": "3",
+      "description": "BRD states reminders are sent by HR but does not specify trigger conditions (manual vs automatic based on due dates) or reminder channel.",
+      "impact": "",
+      "severity": "Low",
+      "clarificationQuestion": "Are reminders manually triggered by HR, or should the system auto-trigger reminders based on approaching/overdue due dates?",
+      "recommendedOwner": "",
+      "status": "Open"
+    },
+    {
+      "gapId": "GAP-INF-001",
+      "brdSection": "3/4",
+      "description": "BRD does not specify password policies or authentication details beyond SSO (e.g., session timeout, MFA) since SSO is delegated to Azure AD.",
+      "impact": "Inferred best-practice / unstated item — not in the BRD; confirm whether it is in scope.",
+      "severity": "Medium",
+      "clarificationQuestion": "Are there any authentication requirements beyond Azure AD SSO delegation (e.g., session timeout, MFA)?",
+      "recommendedOwner": "Business Analyst",
+      "status": "Open"
+    },
+    {
+      "gapId": "GAP-INF-002",
+      "brdSection": "5",
+      "description": "No encryption/transport security standard (e.g., HTTPS/TLS) is stated for data in transit.",
+      "impact": "Inferred best-practice / unstated item — not in the BRD; confirm whether it is in scope.",
+      "severity": "Medium",
+      "clarificationQuestion": "What encryption/transport security standards (TLS version, etc.) are required?",
+      "recommendedOwner": "Business Analyst",
+      "status": "Open"
+    },
+    {
+      "gapId": "GAP-INF-003",
+      "brdSection": "5",
+      "description": "'Documents stored securely' is unspecified — no encryption-at-rest standard, access control specifics, or storage location/provider named.",
+      "impact": "Inferred best-practice / unstated item — not in the BRD; confirm whether it is in scope.",
+      "severity": "Medium",
+      "clarificationQuestion": "What specific security controls (encryption at rest, access permissions, storage provider) define 'securely stored' documents?",
+      "recommendedOwner": "Business Analyst",
+      "status": "Open"
+    },
+    {
+      "gapId": "GAP-INF-004",
+      "brdSection": "3/5",
+      "description": "No data retention or deletion policy stated for uploaded documents or audit logs.",
+      "impact": "Inferred best-practice / unstated item — not in the BRD; confirm whether it is in scope.",
+      "severity": "Medium",
+      "clarificationQuestion": "How long should documents and audit logs be retained, and is there a deletion/purge policy?",
+      "recommendedOwner": "Business Analyst",
+      "status": "Open"
+    },
+    {
+      "gapId": "GAP-INF-005",
+      "brdSection": "5",
+      "description": "No performance/response-time targets given beyond '200 concurrent new hires' (e.g., page load time, upload processing time).",
+      "impact": "Inferred best-practice / unstated item — not in the BRD; confirm whether it is in scope.",
+      "severity": "Medium",
+      "clarificationQuestion": "Are there specific performance SLAs (response time, upload processing time) beyond concurrency count?",
+      "recommendedOwner": "Business Analyst",
+      "status": "Open"
+    },
+    {
+      "gapId": "GAP-INF-006",
+      "brdSection": "3/4",
+      "description": "No error-handling behavior specified for failed SSO login, failed document upload, or integration failures (Azure AD, email service, HRIS downtime).",
+      "impact": "Inferred best-practice / unstated item — not in the BRD; confirm whether it is in scope.",
+      "severity": "Medium",
+      "clarificationQuestion": "What is the expected system behavior when SSO, email, or HRIS integrations fail or time out?",
+      "recommendedOwner": "Business Analyst",
+      "status": "Open"
+    },
+    {
+      "gapId": "GAP-INF-007",
+      "brdSection": "3",
+      "description": "No specification of what happens if a new hire misses a due date on the checklist (escalation, overdue flag).",
+      "impact": "Inferred best-practice / unstated item — not in the BRD; confirm whether it is in scope.",
+      "severity": "Medium",
+      "clarificationQuestion": "Should overdue tasks trigger automatic escalation or reminders beyond HR manually sending them?",
+      "recommendedOwner": "Business Analyst",
+      "status": "Open"
+    },
+    {
+      "gapId": "GAP-INF-008",
+      "brdSection": "3",
+      "description": "No detail on equipment request initiation — who creates the equipment request before manager approval.",
+      "impact": "Inferred best-practice / unstated item — not in the BRD; confirm whether it is in scope.",
+      "severity": "Medium",
+      "clarificationQuestion": "Who initiates the equipment request (new hire, manager, or IT) prior to manager approval?",
+      "recommendedOwner": "Business Analyst",
+      "status": "Open"
+    },
+    {
+      "gapId": "GAP-INF-009",
+      "brdSection": "3",
+      "description": "No validation rule stated for rejected documents (e.g., if HR rejects an uploaded document, what happens).",
+      "impact": "Inferred best-practice / unstated item — not in the BRD; confirm whether it is in scope.",
+      "severity": "Medium",
+      "clarificationQuestion": "Is there a document rejection/resubmission workflow if HR finds an uploaded document invalid?",
+      "recommendedOwner": "Business Analyst",
+      "status": "Open"
+    },
+    {
+      "gapId": "GAP-INF-010",
+      "brdSection": "3/5",
+      "description": "No specification of audit log content/format or who can view audit logs.",
+      "impact": "Inferred best-practice / unstated item — not in the BRD; confirm whether it is in scope.",
+      "severity": "Medium",
+      "clarificationQuestion": "What fields/details must the audit trail capture, and which roles can access it?",
+      "recommendedOwner": "Business Analyst",
+      "status": "Open"
+    },
+    {
+      "gapId": "GAP-INF-011",
+      "brdSection": "5",
+      "description": "No mention of concurrent access conflict handling (e.g., two HR coordinators editing same record) despite defining 200 concurrent users.",
+      "impact": "Inferred best-practice / unstated item — not in the BRD; confirm whether it is in scope.",
+      "severity": "Medium",
+      "clarificationQuestion": "How should the system handle concurrent edits/conflicts on the same new-hire record?",
+      "recommendedOwner": "Business Analyst",
+      "status": "Open"
+    }
+  ],
+  "sprintPlan": {
+    "recommendedSprintStories": [
+      "Additional requirements (R-001–R-013)",
+      "Additional requirements (R-015–R-019)",
+      "IT Account Provisioning on Equipment Approval",
+      "System-Wide Audit Logging of Actions",
+      "Email Service Integration",
+      "Automated Welcome Pack Email"
+    ],
+    "totalStoryPoints": 16,
+    "dependencyNotes": [
+      "Email Service Integration must be completed before or alongside Automated Welcome Pack Email and HR Send Reminders to New Hires, as both rely on the email service.",
+      "IT Account Provisioning on Equipment Approval depends on the Manager equipment approval workflow (covered in R-001–R-013 SSO/access foundation and equipment request stories) being functional first.",
+      "System-Wide Audit Logging of Actions should be integrated early since HR Dashboard, IT Provisioning, and Reminders all need to emit audit events.",
+      "HR Dashboard for Onboarding Completion Tracking depends on New Hire checklist/task and document upload data being available, which are part of R-001–R-013/R-015–R-019 foundational stories.",
+      "Authentication & Access Control stories (R-001–R-013, R-015–R-019) are foundational (SSO, RBAC) and should be prioritized first since nearly all other stories assume an authenticated, role-based session."
+    ],
+    "riskSummary": [
+      "SSO integration with Azure AD may surface unforeseen configuration or tenant-access issues, risking delays to all dependent stories.",
+      "Email Service Integration is a third-party dependency; outages or delayed vendor setup could block Welcome Pack and Reminder features.",
+      "Audit logging must capture actions across multiple stories being built in parallel; if implemented late, retrofitting logging into already-built features may require rework.",
+      "Concurrent load requirement (200 new hires) is not directly tested in this sprint and should be validated in a later performance-focused sprint.",
+      "Document storage security and HR notification-on-upload are not included in this sprint's story list, creating a scope gap risk if assumed complete.",
+      "Ambiguity remains around what exactly R-001–R-013 and R-015–R-019 cover since they are bundled 'additional requirements' rather than discrete stories, risking underestimation."
+    ],
+    "definitionOfReadyChecklist": [
+      "User story has a clear, testable description and acceptance criteria",
+      "Dependencies (e.g., SSO, email service) identified and their availability confirmed",
+      "UI/UX designs or wireframes available where applicable (e.g., HR dashboard, checklist)",
+      "Azure AD SSO test tenant/credentials available for development and QA",
+      "Email service credentials/sandbox environment provisioned",
+      "Story sized and estimated by the team",
+      "Acceptance criteria reviewed and agreed upon by Product Owner"
+    ],
+    "definitionOfDoneChecklist": [
+      "Code developed, peer-reviewed, and merged to main branch",
+      "Unit and integration tests written and passing",
+      "Acceptance criteria fully met and verified by QA",
+      "Audit logging confirmed for all relevant actions in the story",
+      "Role-based access control verified for all applicable user roles",
+      "No critical or high-severity defects open",
+      "Documentation updated (technical and user-facing where applicable)",
+      "Story demoed to Product Owner and accepted"
+    ]
+  }
+}

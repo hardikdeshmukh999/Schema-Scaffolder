@@ -1,0 +1,17 @@
+# Environments
+venv/
+.venv/
+env/
+__pycache__/
+*.pyc
+
+# IDEs
+.vscode/
+.idea/
+
+# Environment Variables
+.env
+.env.local
+
+# Git
+.git/

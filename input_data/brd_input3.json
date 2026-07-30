@@ -1,0 +1,1408 @@
+{
+  "brdSummary": {
+    "projectName": "Employee Onboarding Portal",
+    "businessObjective": "Provide a self-service portal enabling new hires to complete onboarding tasks (profile, documents, equipment, training) while giving HR oversight and control over the process.",
+    "keyCapabilities": [
+      "SSO-based new hire login with four user roles",
+      "Onboarding checklist with due dates",
+      "Document upload with validation and HR notification",
+      "Equipment approval and IT provisioning workflow",
+      "HR completion tracking, reminders and welcome pack email",
+      "System-wide audit logging",
+      "Automated classification of data fields against the HIPAA identifier categories, with masking and redaction"
+    ]
+  },
+  "requirementInventory": [
+    {
+      "reqId": "R-001",
+      "text": "New hires can log in with SSO.",
+      "type": "Functional",
+      "brdSection": "3"
+    },
+    {
+      "reqId": "R-002",
+      "text": "New hires can see a checklist of onboarding tasks with due dates.",
+      "type": "Functional",
+      "brdSection": "3"
+    },
+    {
+      "reqId": "R-003",
+      "text": "New hires upload identity and tax documents (PDF/JPG, max 5MB).",
+      "type": "Validation",
+      "brdSection": "3"
+    },
+    {
+      "reqId": "R-004",
+      "text": "HR is notified on document upload.",
+      "type": "Functional",
+      "brdSection": "3"
+    },
+    {
+      "reqId": "R-005",
+      "text": "Managers approve equipment requests.",
+      "type": "Functional",
+      "brdSection": "3"
+    },
+    {
+      "reqId": "R-006",
+      "text": "IT provisions accounts on approval of equipment requests.",
+      "type": "Functional",
+      "brdSection": "3"
+    },
+    {
+      "reqId": "R-007",
+      "text": "HR can track completion status across all new hires.",
+      "type": "Functional",
+      "brdSection": "3"
+    },
+    {
+      "reqId": "R-008",
+      "text": "HR can send reminders and the system emails a welcome pack.",
+      "type": "Functional",
+      "brdSection": "3"
+    },
+    {
+      "reqId": "R-009",
+      "text": "The system logs all actions for audit.",
+      "type": "Functional",
+      "brdSection": "3"
+    },
+    {
+      "reqId": "R-010",
+      "text": "System supports four user roles: New Hire, HR Coordinator, IT Admin, Manager.",
+      "type": "Role",
+      "brdSection": "2"
+    },
+    {
+      "reqId": "R-011",
+      "text": "Integration with Azure AD for SSO.",
+      "type": "Integration",
+      "brdSection": "4"
+    },
+    {
+      "reqId": "R-012",
+      "text": "Integration with an email service.",
+      "type": "Integration",
+      "brdSection": "4"
+    },
+    {
+      "reqId": "R-013",
+      "text": "Role-based access control and secure document storage.",
+      "type": "Non-Functional",
+      "brdSection": "5"
+    },
+    {
+      "reqId": "R-014",
+      "text": "The system must automatically classify every data field against the HIPAA 18 identifier categories and assign a sensitivity label.",
+      "type": "Non-Functional",
+      "brdSection": "5"
+    },
+    {
+      "reqId": "R-015",
+      "text": "Fields classified as Sensitive PII must be masked in all views and redacted from audit and log payloads.",
+      "type": "Validation",
+      "brdSection": "5"
+    }
+  ],
+  "epics": [
+    {
+      "epicName": "Authentication & Access Control",
+      "description": "SSO login and role-based access across the four user roles.",
+      "businessValue": "Secure, seamless access with correct permission boundaries per role.",
+      "brdReferences": [
+        "R-001",
+        "R-010",
+        "R-011",
+        "R-013"
+      ]
+    },
+    {
+      "epicName": "Onboarding Tasks & Documents",
+      "description": "Checklist of onboarding tasks with due dates, plus document upload with validation and HR notification.",
+      "businessValue": "Gives new hires clarity on what is due and collects compliance documents without HR chasing.",
+      "brdReferences": [
+        "R-002",
+        "R-003",
+        "R-004"
+      ]
+    },
+    {
+      "epicName": "Equipment & Provisioning Workflow",
+      "description": "Manager approval of equipment requests and resulting IT account provisioning.",
+      "businessValue": "Automates the Manager-to-IT handoff so new hires are equipped on day one.",
+      "brdReferences": [
+        "R-005",
+        "R-006"
+      ]
+    },
+    {
+      "epicName": "HR Oversight, Communication & Audit",
+      "description": "HR completion tracking, reminders, welcome pack email and system-wide audit logging.",
+      "businessValue": "Gives HR visibility and communication tools, and provides a compliance trail.",
+      "brdReferences": [
+        "R-007",
+        "R-008",
+        "R-009",
+        "R-012"
+      ]
+    },
+    {
+      "epicName": "Data Privacy & Classification",
+      "description": "Automated classification of data fields against the HIPAA 18 identifier categories, driving masking, log redaction and role-based access to sensitive elements.",
+      "businessValue": "Makes sensitive-data exposure visible and enforceable before an audit finds it, and keeps the classification current as the schema changes.",
+      "brdReferences": [
+        "R-014",
+        "R-015"
+      ]
+    }
+  ],
+  "stories": [
+    {
+      "id": "S-001",
+      "storyTitle": "SSO Login and Role-Based Access",
+      "epicName": "Authentication & Access Control",
+      "userStory": "As a new hire, I want to log in with my company SSO credentials, so that I can reach my onboarding tasks securely without a separate password.",
+      "description": "Azure AD SSO login for the portal, with the four roles (New Hire, HR Coordinator, IT Admin, Manager) mapped from Azure AD groups and enforced on every screen.",
+      "complexity": "Medium",
+      "storyPoints": 5,
+      "priority": "High",
+      "acceptanceCriteria": [
+        {
+          "id": "AC-001",
+          "criteria": "Given a valid Azure AD account, when the user signs in, then they land on the portal home page for their role."
+        },
+        {
+          "id": "AC-002",
+          "criteria": "Given a user with the New Hire role, when they attempt to open the HR dashboard, then access is denied."
+        },
+        {
+          "id": "AC-003",
+          "criteria": "Given Azure AD rejects the sign-in, when the user returns to the portal, then a clear error is shown and no session is created."
+        }
+      ],
+      "testCases": [
+        {
+          "testCaseId": "TC-001",
+          "scenario": "New hire signs in successfully via SSO",
+          "preCondition": "Test user exists in Azure AD and is assigned the New Hire group",
+          "steps": [
+            "Open portal URL",
+            "Click Sign in with SSO",
+            "Complete Azure AD authentication"
+          ],
+          "testData": "newhire.test@company.com",
+          "expectedResult": "New hire home page loads with the onboarding checklist visible",
+          "testType": "Functional",
+          "priority": "High",
+          "linkedAcceptanceCriteria": "AC-001"
+        },
+        {
+          "testCaseId": "TC-002",
+          "scenario": "New hire is blocked from HR-only page",
+          "preCondition": "New hire is signed in",
+          "steps": [
+            "Navigate directly to /hr/dashboard"
+          ],
+          "testData": "URL: /hr/dashboard",
+          "expectedResult": "Access denied page shown; no HR data returned",
+          "testType": "Negative",
+          "priority": "High",
+          "linkedAcceptanceCriteria": "AC-002"
+        },
+        {
+          "testCaseId": "TC-003",
+          "scenario": "Failed Azure AD authentication",
+          "preCondition": "Test user account is disabled in Azure AD",
+          "steps": [
+            "Open portal URL",
+            "Attempt SSO sign-in"
+          ],
+          "testData": "disabled.user@company.com",
+          "expectedResult": "Sign-in fails with a readable error; user is not logged in",
+          "testType": "Negative",
+          "priority": "Medium",
+          "linkedAcceptanceCriteria": "AC-003"
+        }
+      ],
+      "edgeCases": [
+        "User exists in Azure AD but is not assigned to any of the four role groups.",
+        "User is assigned to two role groups (for example Manager and HR Coordinator)."
+      ],
+      "dependencies": [
+        "Is blocked by EXT-AZUREAD (Azure AD tenant, app registration and test accounts): SSO cannot be built or tested without tenant configuration and test users."
+      ],
+      "assumptions": [
+        "Role membership is managed in Azure AD groups, not inside the portal.",
+        "Session and password policy are delegated entirely to Azure AD."
+      ],
+      "risks": [
+        "Azure AD tenant or app registration access is often delayed by IT, which would block every other story."
+      ],
+      "openQuestions": [
+        "What should happen when a user has no role group assigned - blocked, or a default read-only view?"
+      ],
+      "brdTraceabilityReference": "R-001, R-010, R-011, R-013",
+      "coveredReqIds": [
+        "R-001",
+        "R-010",
+        "R-011",
+        "R-013"
+      ],
+      "dataClassificationRefs": [
+        "DC-001",
+        "DC-002",
+        "DC-010",
+        "DC-011"
+      ]
+    },
+    {
+      "id": "S-002",
+      "storyTitle": "Onboarding Checklist with Due Dates",
+      "epicName": "Onboarding Tasks & Documents",
+      "userStory": "As a new hire, I want to see my onboarding tasks with due dates, so that I know what to complete and by when.",
+      "description": "Checklist screen listing each onboarding task, its due date and its completion state, updating as tasks are completed elsewhere in the portal.",
+      "complexity": "Low",
+      "storyPoints": 3,
+      "priority": "High",
+      "acceptanceCriteria": [
+        {
+          "id": "AC-001",
+          "criteria": "Given a signed-in new hire, when they open the checklist, then all assigned tasks are listed with due date and status."
+        },
+        {
+          "id": "AC-002",
+          "criteria": "Given a task is completed, when the checklist is reloaded, then that task shows as complete."
+        },
+        {
+          "id": "AC-003",
+          "criteria": "Given a task due date has passed and the task is incomplete, when the checklist is displayed, then the task is flagged as overdue."
+        }
+      ],
+      "testCases": [
+        {
+          "testCaseId": "TC-001",
+          "scenario": "Checklist displays assigned tasks",
+          "preCondition": "New hire has 5 onboarding tasks assigned",
+          "steps": [
+            "Sign in as new hire",
+            "Open the checklist page"
+          ],
+          "testData": "5 tasks with due dates spread over 10 days",
+          "expectedResult": "All 5 tasks listed with correct titles, due dates and status",
+          "testType": "Functional",
+          "priority": "High",
+          "linkedAcceptanceCriteria": "AC-001"
+        },
+        {
+          "testCaseId": "TC-002",
+          "scenario": "Completed task reflects on checklist",
+          "preCondition": "New hire has an incomplete document upload task",
+          "steps": [
+            "Complete the document upload task",
+            "Return to the checklist"
+          ],
+          "testData": "Task: Upload identity document",
+          "expectedResult": "Task status shows Complete",
+          "testType": "Functional",
+          "priority": "High",
+          "linkedAcceptanceCriteria": "AC-002"
+        },
+        {
+          "testCaseId": "TC-003",
+          "scenario": "Overdue task is flagged",
+          "preCondition": "New hire has a task with a due date in the past",
+          "steps": [
+            "Sign in as new hire",
+            "Open the checklist page"
+          ],
+          "testData": "Task due date set 2 days before today",
+          "expectedResult": "Task shown with an overdue indicator",
+          "testType": "Functional",
+          "priority": "Medium",
+          "linkedAcceptanceCriteria": "AC-003"
+        }
+      ],
+      "edgeCases": [
+        "New hire has no tasks assigned yet.",
+        "Task due date falls on a weekend or public holiday."
+      ],
+      "dependencies": [
+        "Is blocked by S-001 (SSO Login and Role-Based Access): the checklist is per-user and requires an authenticated new hire session."
+      ],
+      "assumptions": [
+        "Task list and due dates are seeded from a standard onboarding template when the new hire record is created."
+      ],
+      "risks": [
+        "The BRD does not define the task template, so scope may grow once HR supplies the real list."
+      ],
+      "openQuestions": [
+        "Who defines and maintains the standard onboarding task template?"
+      ],
+      "brdTraceabilityReference": "R-002",
+      "coveredReqIds": [
+        "R-002"
+      ],
+      "dataClassificationRefs": [
+        "DC-015"
+      ]
+    },
+    {
+      "id": "S-003",
+      "storyTitle": "Document Upload with Validation and HR Notification",
+      "epicName": "Onboarding Tasks & Documents",
+      "userStory": "As a new hire, I want to upload my identity and tax documents, so that HR receives what compliance requires without email back and forth.",
+      "description": "Upload of identity and tax documents restricted to PDF/JPG at 5MB maximum, stored securely, with a notification raised to HR on each successful upload.",
+      "complexity": "Medium",
+      "storyPoints": 5,
+      "priority": "High",
+      "acceptanceCriteria": [
+        {
+          "id": "AC-001",
+          "criteria": "Given a PDF or JPG under 5MB, when the new hire uploads it, then the file is stored and the task is marked complete."
+        },
+        {
+          "id": "AC-002",
+          "criteria": "Given a file over 5MB or of an unsupported type, when upload is attempted, then it is rejected with a message stating the allowed types and size."
+        },
+        {
+          "id": "AC-003",
+          "criteria": "Given an upload succeeds, when it is stored, then HR is notified with the new hire name and document type."
+        }
+      ],
+      "testCases": [
+        {
+          "testCaseId": "TC-001",
+          "scenario": "Valid PDF upload succeeds",
+          "preCondition": "New hire is signed in with an open document task",
+          "steps": [
+            "Open the document upload task",
+            "Select file",
+            "Submit"
+          ],
+          "testData": "identity.pdf, 2.1MB",
+          "expectedResult": "Upload succeeds, task marked complete, HR notification raised",
+          "testType": "Functional",
+          "priority": "High",
+          "linkedAcceptanceCriteria": "AC-001"
+        },
+        {
+          "testCaseId": "TC-002",
+          "scenario": "Oversized file is rejected",
+          "preCondition": "New hire is signed in with an open document task",
+          "steps": [
+            "Open the document upload task",
+            "Select file",
+            "Submit"
+          ],
+          "testData": "tax_scan.pdf, 7.4MB",
+          "expectedResult": "Upload rejected with size error; nothing stored; no HR notification",
+          "testType": "Negative",
+          "priority": "High",
+          "linkedAcceptanceCriteria": "AC-002"
+        },
+        {
+          "testCaseId": "TC-003",
+          "scenario": "Unsupported file type is rejected",
+          "preCondition": "New hire is signed in with an open document task",
+          "steps": [
+            "Open the document upload task",
+            "Select file",
+            "Submit"
+          ],
+          "testData": "passport.docx, 300KB",
+          "expectedResult": "Upload rejected with file type error",
+          "testType": "Negative",
+          "priority": "Medium",
+          "linkedAcceptanceCriteria": "AC-002"
+        }
+      ],
+      "edgeCases": [
+        "Upload connection drops midway leaving a partial file.",
+        "New hire re-uploads a document to replace one already submitted."
+      ],
+      "dependencies": [
+        "Is blocked by S-002 (Onboarding Checklist with Due Dates): document upload is launched from a checklist task and updates its status.",
+        "Relates to S-005 (System-Wide Audit Logging of Actions): each upload and rejection must be written to the audit trail."
+      ],
+      "assumptions": [
+        "HR notification is in-app for this story; email notification is covered by the email service story.",
+        "Documents are stored in encrypted cloud storage with access limited to HR Coordinators."
+      ],
+      "risks": [
+        "The BRD says documents are stored securely but names no standard, so storage design may be reworked after security review."
+      ],
+      "openQuestions": [
+        "Is there a rejection and resubmission flow if HR finds an uploaded document invalid?"
+      ],
+      "brdTraceabilityReference": "R-003, R-004, R-013",
+      "coveredReqIds": [
+        "R-003",
+        "R-004",
+        "R-013"
+      ],
+      "dataClassificationRefs": [
+        "DC-004",
+        "DC-006",
+        "DC-007",
+        "DC-008",
+        "DC-009"
+      ]
+    },
+    {
+      "id": "S-004",
+      "storyTitle": "Equipment Approval and IT Account Provisioning",
+      "epicName": "Equipment & Provisioning Workflow",
+      "userStory": "As an IT Admin, I want a provisioning task raised when a manager approves an equipment request, so that new hires get their access without manual chasing.",
+      "description": "Manager reviews and approves or rejects an equipment request for a new hire. Approval creates a provisioning task in the IT Admin queue; rejection creates nothing.",
+      "complexity": "Medium",
+      "storyPoints": 5,
+      "priority": "High",
+      "acceptanceCriteria": [
+        {
+          "id": "AC-001",
+          "criteria": "Given a pending equipment request, when the Manager approves it, then a provisioning task is created in the IT Admin queue for that new hire."
+        },
+        {
+          "id": "AC-002",
+          "criteria": "Given a pending equipment request, when the Manager rejects it, then no provisioning task is created and the requester is informed."
+        },
+        {
+          "id": "AC-003",
+          "criteria": "Given a non-Manager role, when they attempt to approve a request, then the action is unavailable and no provisioning is triggered."
+        }
+      ],
+      "testCases": [
+        {
+          "testCaseId": "TC-001",
+          "scenario": "Manager approval creates provisioning task",
+          "preCondition": "A pending equipment request exists for new hire A",
+          "steps": [
+            "Sign in as Manager",
+            "Open the pending request",
+            "Approve"
+          ],
+          "testData": "Request: laptop and monitor for new hire A",
+          "expectedResult": "Provisioning task visible in IT Admin queue, linked to new hire A",
+          "testType": "Functional",
+          "priority": "High",
+          "linkedAcceptanceCriteria": "AC-001"
+        },
+        {
+          "testCaseId": "TC-002",
+          "scenario": "Rejection does not provision",
+          "preCondition": "A pending equipment request exists for new hire B",
+          "steps": [
+            "Sign in as Manager",
+            "Open the pending request",
+            "Reject"
+          ],
+          "testData": "Request: laptop for new hire B",
+          "expectedResult": "No provisioning task created; request marked rejected",
+          "testType": "Negative",
+          "priority": "Medium",
+          "linkedAcceptanceCriteria": "AC-002"
+        },
+        {
+          "testCaseId": "TC-003",
+          "scenario": "Non-manager cannot approve",
+          "preCondition": "A pending equipment request exists",
+          "steps": [
+            "Sign in as IT Admin",
+            "Open the request",
+            "Attempt to approve"
+          ],
+          "testData": "IT Admin account",
+          "expectedResult": "Approve action blocked or hidden; no provisioning triggered",
+          "testType": "Negative",
+          "priority": "High",
+          "linkedAcceptanceCriteria": "AC-003"
+        }
+      ],
+      "edgeCases": [
+        "The same request is approved twice in quick succession.",
+        "The approving manager leaves the company before acting on the request."
+      ],
+      "dependencies": [
+        "Is blocked by S-001 (SSO Login and Role-Based Access): approval is restricted to the Manager role and provisioning to the IT Admin role.",
+        "Relates to S-005 (System-Wide Audit Logging of Actions): approvals, rejections and provisioning actions must be auditable."
+      ],
+      "assumptions": [
+        "Provisioning means creating a task for IT; the portal does not create accounts in downstream systems itself."
+      ],
+      "risks": [
+        "Downstream IT systems may later be expected to be provisioned automatically, which would be a significant scope increase."
+      ],
+      "openQuestions": [
+        "Who initiates the equipment request before manager approval - new hire, manager or IT?"
+      ],
+      "brdTraceabilityReference": "R-005, R-006",
+      "coveredReqIds": [
+        "R-005",
+        "R-006"
+      ],
+      "dataClassificationRefs": [
+        "DC-014"
+      ]
+    },
+    {
+      "id": "S-005",
+      "storyTitle": "System-Wide Audit Logging of Actions",
+      "epicName": "HR Oversight, Communication & Audit",
+      "userStory": "As an HR Coordinator, I want every action in the portal recorded, so that we can show a compliance trail of who did what and when.",
+      "description": "A shared audit logging service capturing actor, role, action, target record and timestamp for all portal actions, with a read-only view for authorised roles.",
+      "complexity": "Medium",
+      "storyPoints": 5,
+      "priority": "High",
+      "acceptanceCriteria": [
+        {
+          "id": "AC-001",
+          "criteria": "Given any user performs an action, when it completes, then an audit entry records actor, role, action, target and timestamp."
+        },
+        {
+          "id": "AC-002",
+          "criteria": "Given an audit entry has been written, when any user attempts to edit or delete it, then the change is refused."
+        },
+        {
+          "id": "AC-003",
+          "criteria": "Given a user without audit permissions, when they attempt to view the audit log, then access is denied."
+        }
+      ],
+      "testCases": [
+        {
+          "testCaseId": "TC-001",
+          "scenario": "Login and upload produce audit entries",
+          "preCondition": "Audit logging is enabled",
+          "steps": [
+            "Sign in as new hire",
+            "Upload an identity document",
+            "View the audit log as HR"
+          ],
+          "testData": "identity.pdf, 2.1MB",
+          "expectedResult": "Two entries recorded with correct actor, action and timestamp",
+          "testType": "Functional",
+          "priority": "High",
+          "linkedAcceptanceCriteria": "AC-001"
+        },
+        {
+          "testCaseId": "TC-002",
+          "scenario": "Audit entries are immutable",
+          "preCondition": "At least one audit entry exists",
+          "steps": [
+            "Attempt to edit an audit entry via the API"
+          ],
+          "testData": "PATCH on an existing audit record",
+          "expectedResult": "Request refused; entry unchanged",
+          "testType": "Negative",
+          "priority": "High",
+          "linkedAcceptanceCriteria": "AC-002"
+        },
+        {
+          "testCaseId": "TC-003",
+          "scenario": "Unauthorised role cannot read the audit log",
+          "preCondition": "New hire is signed in",
+          "steps": [
+            "Navigate to the audit log page"
+          ],
+          "testData": "URL: /audit",
+          "expectedResult": "Access denied; no audit data returned",
+          "testType": "Negative",
+          "priority": "Medium",
+          "linkedAcceptanceCriteria": "AC-003"
+        }
+      ],
+      "edgeCases": [
+        "The audit store is unavailable while a user action succeeds.",
+        "A single bulk action by HR affects many new hire records at once."
+      ],
+      "dependencies": [
+        "Is blocked by S-001 (SSO Login and Role-Based Access): audit entries must record the acting user and role from the authenticated session."
+      ],
+      "assumptions": [
+        "Audit entries are append-only and retained for at least seven years."
+      ],
+      "risks": [
+        "If logging is added late, features built in parallel will need rework to emit audit events."
+      ],
+      "openQuestions": [
+        "What fields must the audit trail capture, and which roles can read it?"
+      ],
+      "brdTraceabilityReference": "R-009",
+      "coveredReqIds": [
+        "R-009"
+      ],
+      "dataClassificationRefs": [
+        "DC-011",
+        "DC-012",
+        "DC-013"
+      ]
+    },
+    {
+      "id": "S-006",
+      "storyTitle": "HR Tracking, Reminders and Welcome Pack Email",
+      "epicName": "HR Oversight, Communication & Audit",
+      "userStory": "As an HR Coordinator, I want to see completion status across all new hires and send reminders, so that onboarding finishes on time without manual tracking.",
+      "description": "HR dashboard showing per-new-hire completion status, the ability to send reminder emails to selected new hires, and an automated welcome pack email on onboarding start. All email delivery goes through the email service integration.",
+      "complexity": "High",
+      "storyPoints": 8,
+      "priority": "Medium",
+      "acceptanceCriteria": [
+        {
+          "id": "AC-001",
+          "criteria": "Given an HR Coordinator opens the dashboard, when it loads, then each new hire is listed with completion status and overdue tasks."
+        },
+        {
+          "id": "AC-002",
+          "criteria": "Given HR selects one or more new hires, when they send a reminder, then a reminder email is delivered and the send is recorded."
+        },
+        {
+          "id": "AC-003",
+          "criteria": "Given a new hire record is created, when onboarding starts, then the welcome pack email is sent automatically to that new hire."
+        }
+      ],
+      "testCases": [
+        {
+          "testCaseId": "TC-001",
+          "scenario": "Dashboard shows completion status",
+          "preCondition": "Three new hires exist at different completion stages",
+          "steps": [
+            "Sign in as HR Coordinator",
+            "Open the dashboard"
+          ],
+          "testData": "New hires at 0%, 50% and 100% completion",
+          "expectedResult": "All three listed with correct status and overdue flags",
+          "testType": "Functional",
+          "priority": "High",
+          "linkedAcceptanceCriteria": "AC-001"
+        },
+        {
+          "testCaseId": "TC-002",
+          "scenario": "HR sends a reminder",
+          "preCondition": "A new hire has an incomplete task",
+          "steps": [
+            "Select the new hire on the dashboard",
+            "Click Send reminder"
+          ],
+          "testData": "newhire.test@company.com",
+          "expectedResult": "Reminder email delivered to the sandbox inbox; send recorded",
+          "testType": "Functional",
+          "priority": "High",
+          "linkedAcceptanceCriteria": "AC-002"
+        },
+        {
+          "testCaseId": "TC-003",
+          "scenario": "Email service failure is handled",
+          "preCondition": "Email service sandbox is configured to return an error",
+          "steps": [
+            "Select a new hire",
+            "Click Send reminder"
+          ],
+          "testData": "Simulated 500 response from email provider",
+          "expectedResult": "HR sees a clear failure message; the failure is logged; no silent success",
+          "testType": "Negative",
+          "priority": "Medium",
+          "linkedAcceptanceCriteria": "AC-002"
+        }
+      ],
+      "edgeCases": [
+        "A new hire completes their last task while HR is composing a reminder to them.",
+        "The welcome pack email bounces because the personal email address is wrong."
+      ],
+      "dependencies": [
+        "Is blocked by S-002 (Onboarding Checklist with Due Dates): completion status is derived from checklist task state.",
+        "Is blocked by S-003 (Document Upload with Validation and HR Notification): document submission status feeds the dashboard.",
+        "Is blocked by EXT-EMAIL (Email service vendor account, API keys and sandbox): reminders and the welcome pack cannot be delivered or tested without vendor credentials and a verified sending domain.",
+        "Relates to S-005 (System-Wide Audit Logging of Actions): every reminder and welcome pack send must be written to the audit trail."
+      ],
+      "assumptions": [
+        "Reminders are triggered manually by HR in this release, not automatically on due date.",
+        "Welcome pack content and template are supplied by HR before release."
+      ],
+      "risks": [
+        "The email service is a third-party dependency; vendor setup delays would block both reminders and the welcome pack."
+      ],
+      "openQuestions": [
+        "Should the system also send reminders automatically when a due date approaches or passes?"
+      ],
+      "brdTraceabilityReference": "R-007, R-008, R-012",
+      "coveredReqIds": [
+        "R-007",
+        "R-008",
+        "R-012"
+      ],
+      "dataClassificationRefs": [
+        "DC-001",
+        "DC-002",
+        "DC-003",
+        "DC-005",
+        "DC-010",
+        "DC-015"
+      ]
+    },
+    {
+      "id": "S-007",
+      "storyTitle": "Automated Data Classification and Masking Enforcement",
+      "epicName": "Data Privacy & Classification",
+      "userStory": "As a Data Protection Officer, I want every field in the portal automatically classified and masked according to its sensitivity, so that identifiers are protected without a manual column-by-column review each time the schema changes.",
+      "description": "A classification service that scans schema and column metadata, matches each field against the HIPAA 18 identifier categories, and assigns a label from the classificationLegend in dataClassification. Output is written back to the dataClassification catalog (DC-001 to DC-016) and drives the maskingRule, accessRoles and retentionPolicy already defined for each element. Note the scope position recorded in dataClassification.scopeNotes: on current scope these are employment records, so elements are labelled PII rather than PHI even where they match a HIPAA identifier category. DC-016 is the trigger - if benefits or health data is ever added, the PHI branch of the ruleset applies and the compliance regime changes.",
+      "complexity": "High",
+      "storyPoints": 8,
+      "priority": "High",
+      "acceptanceCriteria": [
+        {
+          "id": "AC-001",
+          "criteria": "Given the portal schema, when classification runs, then every column receives exactly one classificationLegend label plus its matching hipaaIdentifierCategory and a confidence score."
+        },
+        {
+          "id": "AC-002",
+          "criteria": "Given a column matches a HIPAA direct identifier category (names, geographic subdivisions, dates related to an individual, phone, email, national ID, account or certificate numbers, device identifiers, IP addresses, biometric identifiers, full-face images, or any other unique identifying number), when it is classified, then it is labelled at or above PII - Direct Identifier."
+        },
+        {
+          "id": "AC-003",
+          "criteria": "Given an element is labelled Sensitive PII or higher, when it is rendered anywhere in the UI or an export, then the maskingRule recorded for that element in dataClassification is applied."
+        },
+        {
+          "id": "AC-004",
+          "criteria": "Given an element is labelled Sensitive PII or higher, when any action on that record is written to the audit log, then the value is redacted while the field name, actor and action are retained."
+        },
+        {
+          "id": "AC-005",
+          "criteria": "Given confidence falls below the agreed threshold, when results are produced, then the column is queued for human review and no masking rule is auto-enforced from it."
+        },
+        {
+          "id": "AC-006",
+          "criteria": "Given a column is added or renamed after the last run, when classification next runs, then the new or changed column appears as unclassified rather than silently defaulting to Non-Sensitive."
+        }
+      ],
+      "testCases": [
+        {
+          "testCaseId": "TC-001",
+          "scenario": "Direct identifier columns are classified correctly",
+          "preCondition": "Classification service has read access to schema metadata",
+          "steps": [
+            "Run classification against the new_hire table",
+            "Open the resulting catalog"
+          ],
+          "testData": "new_hire.full_name, new_hire.personal_email, new_hire.phone_number, new_hire.home_address",
+          "expectedResult": "Each column matches its expected DC entry (DC-001, DC-003, DC-005, DC-004) with the correct HIPAA category",
+          "testType": "Functional",
+          "priority": "High",
+          "linkedAcceptanceCriteria": "AC-001, AC-002"
+        },
+        {
+          "testCaseId": "TC-002",
+          "scenario": "Highest-risk identifier is classified and never exposed",
+          "preCondition": "Classification has run against the document tables",
+          "steps": [
+            "Locate the national ID column in the catalog",
+            "Render the value in the HR list view"
+          ],
+          "testData": "tax_document.ssn, identity_document.national_id",
+          "expectedResult": "Labelled Sensitive PII - Highest Risk per DC-007; displayed as last four digits only",
+          "testType": "Functional",
+          "priority": "High",
+          "linkedAcceptanceCriteria": "AC-002, AC-003"
+        },
+        {
+          "testCaseId": "TC-003",
+          "scenario": "Business data is not over-classified",
+          "preCondition": "Classification service has read access to schema metadata",
+          "steps": [
+            "Run classification against the task and equipment tables",
+            "Open the resulting catalog"
+          ],
+          "testData": "onboarding_task.task_title, onboarding_task.due_date, equipment_request.item_type",
+          "expectedResult": "Labelled Non-Sensitive - Business Data per DC-015; no masking applied",
+          "testType": "Negative",
+          "priority": "Medium",
+          "linkedAcceptanceCriteria": "AC-001"
+        },
+        {
+          "testCaseId": "TC-004",
+          "scenario": "Sensitive value is redacted in the audit log",
+          "preCondition": "Audit logging (S-005) is live and classification has run",
+          "steps": [
+            "Update a Sensitive PII field",
+            "Open the resulting audit entry"
+          ],
+          "testData": "new_hire.date_of_birth (DC-006)",
+          "expectedResult": "Audit entry records actor, role, action, table and column name, but not the value",
+          "testType": "Functional",
+          "priority": "High",
+          "linkedAcceptanceCriteria": "AC-004"
+        },
+        {
+          "testCaseId": "TC-005",
+          "scenario": "Ambiguous column is queued for review",
+          "preCondition": "Confidence threshold is configured",
+          "steps": [
+            "Run classification against a column with an ambiguous name",
+            "Open the review queue"
+          ],
+          "testData": "new_hire.reference_number",
+          "expectedResult": "Column appears in the review queue; no label auto-applied and no masking enforced",
+          "testType": "Negative",
+          "priority": "Medium",
+          "linkedAcceptanceCriteria": "AC-005"
+        },
+        {
+          "testCaseId": "TC-006",
+          "scenario": "Health data trigger is detected",
+          "preCondition": "A benefits or medical field is introduced into the schema",
+          "steps": [
+            "Run classification against the new table",
+            "Open the review queue"
+          ],
+          "testData": "benefits_enrollment.health_plan_number",
+          "expectedResult": "Flagged against DC-016 as a scope change requiring compliance review, not auto-classified as ordinary PII",
+          "testType": "Functional",
+          "priority": "High",
+          "linkedAcceptanceCriteria": "AC-006"
+        }
+      ],
+      "edgeCases": [
+        "A free-text notes column contains identifiers inside its values while the column name gives no signal.",
+        "Identifiers sit inside an uploaded document rather than a database column, so column-level classification alone misses them.",
+        "A column holds a year-only date, which is not a HIPAA identifier, while a full date in the same table is.",
+        "A column is renamed between classification runs, leaving a masking rule bound to a name that no longer exists."
+      ],
+      "dependencies": [
+        "Is blocked by S-001 (SSO Login and Role-Based Access): masking and unmasking are enforced against the accessRoles recorded per element, which requires the role model.",
+        "Is blocked by S-003 (Document Upload with Validation and HR Notification): identity and tax document handling is the main source of high-risk identifiers to classify.",
+        "Relates to S-005 (System-Wide Audit Logging of Actions): audit payloads must redact values for elements labelled Sensitive PII or higher.",
+        "Relates to EXT-COMPLIANCE (Data Protection Officer sign-off on the ruleset and confidence threshold): classification labels cannot be enforced in production until the ruleset is approved."
+      ],
+      "assumptions": [
+        "Classification runs against schema and column metadata plus sampled values, not a full production data export.",
+        "On current scope the portal holds employment records, so elements are PII; the PHI branch activates only if benefits or health data is added (DC-016).",
+        "A human approves the catalog before masking rules are enforced in production.",
+        "Free-text and document-content scanning is a later phase and is not part of this story."
+      ],
+      "risks": [
+        "False negatives leave identifiers unmasked, which is a breach-notification exposure that automated classification can hide rather than reveal.",
+        "Over-classification masks operational fields and makes the HR dashboard unusable, prompting teams to request blanket unmasking.",
+        "Classification correctness cannot be proven by the tool itself; without DPO review the catalog gives false assurance.",
+        "If added after go-live, masking and redaction must be retrofitted across every story that already handles these fields."
+      ],
+      "openQuestions": [
+        "What confidence threshold separates an auto-applied label from human review?",
+        "Which roles, if any, may unmask a Sensitive PII element, and is the unmask action itself audited?",
+        "Does classification re-run on every schema migration, or on a fixed schedule?",
+        "Who signs off the catalog - the Data Protection Officer named in G-006, or a wider review?"
+      ],
+      "brdTraceabilityReference": "R-014, R-015",
+      "coveredReqIds": [
+        "R-014",
+        "R-015"
+      ],
+      "dataClassificationRefs": [
+        "DC-001",
+        "DC-002",
+        "DC-003",
+        "DC-004",
+        "DC-005",
+        "DC-006",
+        "DC-007",
+        "DC-008",
+        "DC-009",
+        "DC-010",
+        "DC-011",
+        "DC-012",
+        "DC-013",
+        "DC-014",
+        "DC-015",
+        "DC-016"
+      ]
+    }
+  ],
+  "gaps": [
+    {
+      "gapId": "G-001",
+      "brdSection": "3",
+      "description": "The BRD does not define what happens when a new hire misses a task due date - no escalation or overdue policy is stated.",
+      "impact": "Overdue handling may be built to the wrong assumption, requiring rework of the checklist and reminder logic.",
+      "severity": "Medium",
+      "clarificationQuestion": "Should overdue tasks trigger automatic escalation, or is manual HR follow-up sufficient?",
+      "recommendedOwner": "Business Analyst",
+      "status": "Open"
+    },
+    {
+      "gapId": "G-002",
+      "brdSection": "3",
+      "description": "Equipment request initiation is not described - only the manager approval step is stated.",
+      "impact": "The first half of the equipment workflow is unscoped, so S-004 may be underestimated.",
+      "severity": "High",
+      "clarificationQuestion": "Who creates the equipment request before manager approval - new hire, manager or IT?",
+      "recommendedOwner": "Product Owner",
+      "status": "Open"
+    },
+    {
+      "gapId": "G-003",
+      "brdSection": "5",
+      "description": "Documents stored securely is unspecified - no encryption standard, retention period or storage provider is named.",
+      "impact": "Storage design may fail security review late in the sprint, forcing rework of the upload story.",
+      "severity": "High",
+      "clarificationQuestion": "What encryption, access control and retention rules define securely stored documents?",
+      "recommendedOwner": "Security Architect",
+      "status": "Open"
+    },
+    {
+      "gapId": "G-004",
+      "brdSection": "3",
+      "description": "No document rejection or resubmission flow is described if HR finds an uploaded document invalid.",
+      "impact": "New hires could be stuck with an accepted but unusable document and no route to correct it.",
+      "severity": "Medium",
+      "clarificationQuestion": "Can HR reject a document and request resubmission, and how is the new hire told?",
+      "recommendedOwner": "Business Analyst",
+      "status": "Open"
+    },
+    {
+      "gapId": "G-005",
+      "brdSection": "4",
+      "description": "No error handling behaviour is defined for integration failures with Azure AD or the email service.",
+      "impact": "Failures may be silent, so HR could believe reminders were sent when they were not.",
+      "severity": "Medium",
+      "clarificationQuestion": "What should the system do when SSO or the email service fails or times out?",
+      "recommendedOwner": "Technical Lead",
+      "status": "Open"
+    },
+    {
+      "gapId": "G-006",
+      "brdSection": "5",
+      "description": "The BRD does not classify the personal data the portal handles. Identity and tax documents contain national ID numbers, dates of birth and address data, but no masking, retention or access rules are stated for them.",
+      "impact": "Sensitive identifiers may be stored in queryable columns or written to logs, creating breach-notification exposure and likely rework after security review.",
+      "severity": "High",
+      "clarificationQuestion": "Can the data classification in dataClassification be confirmed, and is the portal ever expected to hold benefits or health data that would bring HIPAA into scope?",
+      "recommendedOwner": "Data Protection Officer",
+      "status": "Open"
+    }
+  ],
+  "sprintPlan": {
+    "recommendedSprintStories": [
+      "SSO Login and Role-Based Access",
+      "System-Wide Audit Logging of Actions",
+      "Onboarding Checklist with Due Dates",
+      "Document Upload with Validation and HR Notification",
+      "Equipment Approval and IT Account Provisioning"
+    ],
+    "totalStoryPoints": 23,
+    "dependencyNotes": [
+      "S-001 is foundational: every other story needs an authenticated, role-aware session, so it must land first.",
+      "S-005 audit logging should be built early because S-003, S-004 and S-006 all emit audit events; adding it late means rework.",
+      "S-002 must precede S-003, since document upload is launched from a checklist task and updates its status.",
+      "S-006 depends on S-002 and S-003 for its data plus the external email service, so it is held to the following sprint.",
+      "S-007 depends on S-001 for role-based masking and on S-003 for the document handling it classifies. Its redaction rules must be agreed before S-005 audit payloads are treated as final, otherwise logs are rewritten later."
+    ],
+    "riskSummary": [
+      "Azure AD tenant access is an external dependency that gates S-001 and therefore the whole sprint.",
+      "The email service vendor account is not yet provisioned, which is why S-006 is out of this sprint.",
+      "Secure document storage is undefined (G-003) and may fail security review after S-003 is built.",
+      "Equipment request initiation is unscoped (G-002), so S-004 could be larger than five points.",
+      "Data classification (S-007) is unbudgeted in the BRD (G-006). Deferring it past go-live means retrofitting masking and log redaction across every story that already touches identifiers."
+    ],
+    "definitionOfReadyChecklist": [
+      "Story has a testable description and agreed acceptance criteria",
+      "Dependencies identified and their availability confirmed",
+      "Azure AD test tenant and accounts available for development and QA",
+      "Wireframes available for user-facing screens",
+      "Story sized and estimated by the team"
+    ],
+    "definitionOfDoneChecklist": [
+      "Code peer-reviewed and merged to main",
+      "Unit and integration tests written and passing",
+      "Acceptance criteria verified by QA",
+      "Audit logging confirmed for all actions in the story",
+      "Role-based access verified for every applicable role",
+      "No critical or high-severity defects open",
+      "Story demoed to and accepted by the Product Owner"
+    ]
+  },
+  "dataClassification": {
+    "standardsApplied": [
+      "HIPAA Privacy Rule 45 CFR 164.514(b)(2) - the 18 identifier categories",
+      "General PII definition per NIST SP 800-122"
+    ],
+    "scopeNotes": [
+      "HIPAA excludes employment records held by a covered entity in its role as employer (45 CFR 160.103). On its current scope this portal handles employment records, so the data is PII and not PHI, even though several elements match HIPAA identifier categories.",
+      "The HIPAA identifier categories are still applied here as the classification yardstick, because the same identifiers drive masking, de-identification and breach-notification decisions regardless of whether HIPAA itself applies.",
+      "This changes the moment the portal touches group health plan data - benefits enrolment, medical accommodation requests or occupational health clearance. See DC-016 and G-006."
+    ],
+    "classificationLegend": [
+      "Sensitive PII - Highest Risk: breach is individually notifiable; never display in full, never store in a queryable column",
+      "Sensitive PII: breach is individually notifiable; mask by default, restrict to named roles",
+      "PII - Direct Identifier: identifies a person on its own",
+      "PII - Indirect Identifier: identifies a person when combined with other data",
+      "Non-Sensitive - Business Data: not personal data until joined to an identified person",
+      "Potential PHI - Out of Scope: not handled today; would change the compliance regime if added"
+    ],
+    "dataElements": [
+      {
+        "dataElementId": "DC-001",
+        "dataElementName": "Full name",
+        "fieldOrColumn": "new_hire.first_name, new_hire.last_name",
+        "classification": "PII - Direct Identifier",
+        "hipaaIdentifierCategory": "1 - Names",
+        "storyRefs": [
+          "S-001",
+          "S-006"
+        ],
+        "reqRefs": [
+          "R-001",
+          "R-007"
+        ],
+        "storageLocation": "HRIS (source of record), portal user table",
+        "encryptionRequired": "At rest and in transit",
+        "maskingRule": "Not masked in HR views; initials only in exported reports",
+        "retentionPolicy": "Delete 7 years after termination",
+        "accessRoles": [
+          "HR Coordinator",
+          "Manager",
+          "IT Admin"
+        ],
+        "notes": "Sourced from Azure AD and HRIS; never entered manually by the new hire."
+      },
+      {
+        "dataElementId": "DC-002",
+        "dataElementName": "Work email address",
+        "fieldOrColumn": "new_hire.work_email",
+        "classification": "PII - Direct Identifier",
+        "hipaaIdentifierCategory": "6 - Electronic mail addresses",
+        "storyRefs": [
+          "S-001",
+          "S-006"
+        ],
+        "reqRefs": [
+          "R-001",
+          "R-012"
+        ],
+        "storageLocation": "Azure AD, portal user table",
+        "encryptionRequired": "At rest and in transit",
+        "maskingRule": "Not masked",
+        "retentionPolicy": "Delete 7 years after termination",
+        "accessRoles": [
+          "HR Coordinator",
+          "IT Admin"
+        ],
+        "notes": "Used as the SSO principal and the reminder delivery address."
+      },
+      {
+        "dataElementId": "DC-003",
+        "dataElementName": "Personal email address",
+        "fieldOrColumn": "new_hire.personal_email",
+        "classification": "PII - Direct Identifier",
+        "hipaaIdentifierCategory": "6 - Electronic mail addresses",
+        "storyRefs": [
+          "S-006"
+        ],
+        "reqRefs": [
+          "R-008",
+          "R-012"
+        ],
+        "storageLocation": "Portal user table",
+        "encryptionRequired": "At rest and in transit",
+        "maskingRule": "Masked to partial (j***@gmail.com) in the HR dashboard",
+        "retentionPolicy": "Purge on first day of employment",
+        "accessRoles": [
+          "HR Coordinator"
+        ],
+        "notes": "Only needed to deliver the pre-start welcome pack; delete once the work account is live."
+      },
+      {
+        "dataElementId": "DC-004",
+        "dataElementName": "Home address",
+        "fieldOrColumn": "new_hire.address_line1, address_line2, city, postal_code",
+        "classification": "PII - Direct Identifier",
+        "hipaaIdentifierCategory": "2 - Geographic subdivisions smaller than a state",
+        "storyRefs": [
+          "S-003"
+        ],
+        "reqRefs": [
+          "R-003"
+        ],
+        "storageLocation": "Extracted from uploaded identity documents; HRIS",
+        "encryptionRequired": "At rest and in transit",
+        "maskingRule": "Postal code only in any analytics view",
+        "retentionPolicy": "Delete 7 years after termination",
+        "accessRoles": [
+          "HR Coordinator"
+        ],
+        "notes": "Appears inside identity document images even if not stored as a discrete column."
+      },
+      {
+        "dataElementId": "DC-005",
+        "dataElementName": "Personal phone number",
+        "fieldOrColumn": "new_hire.phone",
+        "classification": "PII - Direct Identifier",
+        "hipaaIdentifierCategory": "4 - Telephone numbers",
+        "storyRefs": [
+          "S-006"
+        ],
+        "reqRefs": [
+          "R-008"
+        ],
+        "storageLocation": "HRIS, portal user table",
+        "encryptionRequired": "At rest and in transit",
+        "maskingRule": "Last 4 digits only in HR list views",
+        "retentionPolicy": "Delete 7 years after termination",
+        "accessRoles": [
+          "HR Coordinator"
+        ],
+        "notes": "In scope only if SMS reminders are added; currently email only."
+      },
+      {
+        "dataElementId": "DC-006",
+        "dataElementName": "Date of birth",
+        "fieldOrColumn": "new_hire.date_of_birth",
+        "classification": "Sensitive PII",
+        "hipaaIdentifierCategory": "3 - Dates directly related to an individual",
+        "storyRefs": [
+          "S-003"
+        ],
+        "reqRefs": [
+          "R-003"
+        ],
+        "storageLocation": "HRIS; present inside identity document images",
+        "encryptionRequired": "At rest and in transit",
+        "maskingRule": "Year only, or fully masked, outside HR",
+        "retentionPolicy": "Delete 7 years after termination",
+        "accessRoles": [
+          "HR Coordinator"
+        ],
+        "notes": "Under HIPAA de-identification only the year may be retained. High re-identification risk when combined with name and postal code."
+      },
+      {
+        "dataElementId": "DC-007",
+        "dataElementName": "National ID / Social Security number",
+        "fieldOrColumn": "tax_document.ssn, identity_document.national_id",
+        "classification": "Sensitive PII - Highest Risk",
+        "hipaaIdentifierCategory": "7 - Social security numbers",
+        "storyRefs": [
+          "S-003"
+        ],
+        "reqRefs": [
+          "R-003",
+          "R-013"
+        ],
+        "storageLocation": "Encrypted document store only; not stored as a queryable column",
+        "encryptionRequired": "At rest (field-level) and in transit",
+        "maskingRule": "Last 4 digits only, never displayed in full in the UI",
+        "retentionPolicy": "Delete 7 years after termination per tax rules",
+        "accessRoles": [
+          "HR Coordinator"
+        ],
+        "notes": "Should never be extracted into the application database. Log access to this element separately."
+      },
+      {
+        "dataElementId": "DC-008",
+        "dataElementName": "Identity document image",
+        "fieldOrColumn": "documents.file_blob (type = identity)",
+        "classification": "Sensitive PII",
+        "hipaaIdentifierCategory": "17 - Full-face photographs and comparable images",
+        "storyRefs": [
+          "S-003"
+        ],
+        "reqRefs": [
+          "R-003",
+          "R-013"
+        ],
+        "storageLocation": "Encrypted blob storage, private container",
+        "encryptionRequired": "At rest and in transit",
+        "maskingRule": "Thumbnail preview disabled; view requires explicit HR action",
+        "retentionPolicy": "Delete 7 years after termination",
+        "accessRoles": [
+          "HR Coordinator"
+        ],
+        "notes": "A passport or licence scan is a compound element: face image, DOB, address and ID number in one file."
+      },
+      {
+        "dataElementId": "DC-009",
+        "dataElementName": "Tax document image",
+        "fieldOrColumn": "documents.file_blob (type = tax)",
+        "classification": "Sensitive PII",
+        "hipaaIdentifierCategory": "7 - Social security numbers",
+        "storyRefs": [
+          "S-003"
+        ],
+        "reqRefs": [
+          "R-003",
+          "R-013"
+        ],
+        "storageLocation": "Encrypted blob storage, private container",
+        "encryptionRequired": "At rest and in transit",
+        "maskingRule": "View requires explicit HR action",
+        "retentionPolicy": "Delete 7 years after termination per tax rules",
+        "accessRoles": [
+          "HR Coordinator"
+        ],
+        "notes": "Contains SSN and earnings information."
+      },
+      {
+        "dataElementId": "DC-010",
+        "dataElementName": "Employee / HRIS record ID",
+        "fieldOrColumn": "new_hire.employee_id",
+        "classification": "PII - Indirect Identifier",
+        "hipaaIdentifierCategory": "18 - Any other unique identifying number or code",
+        "storyRefs": [
+          "S-001",
+          "S-006"
+        ],
+        "reqRefs": [
+          "R-007",
+          "R-010"
+        ],
+        "storageLocation": "HRIS, portal user table",
+        "encryptionRequired": "In transit",
+        "maskingRule": "Not masked",
+        "retentionPolicy": "Delete 7 years after termination",
+        "accessRoles": [
+          "HR Coordinator",
+          "Manager",
+          "IT Admin"
+        ],
+        "notes": "Pseudonymous on its own but re-identifying when joined to HRIS."
+      },
+      {
+        "dataElementId": "DC-011",
+        "dataElementName": "Azure AD object ID / UPN",
+        "fieldOrColumn": "user.azure_ad_object_id, user.upn",
+        "classification": "PII - Indirect Identifier",
+        "hipaaIdentifierCategory": "18 - Any other unique identifying number or code",
+        "storyRefs": [
+          "S-001",
+          "S-005"
+        ],
+        "reqRefs": [
+          "R-001",
+          "R-011"
+        ],
+        "storageLocation": "Azure AD, portal session and audit records",
+        "encryptionRequired": "In transit",
+        "maskingRule": "Not masked",
+        "retentionPolicy": "Delete 7 years after termination",
+        "accessRoles": [
+          "IT Admin"
+        ],
+        "notes": "Primary join key between the audit log and a real person."
+      },
+      {
+        "dataElementId": "DC-012",
+        "dataElementName": "IP address",
+        "fieldOrColumn": "audit_log.source_ip",
+        "classification": "PII - Indirect Identifier",
+        "hipaaIdentifierCategory": "15 - Internet Protocol address numbers",
+        "storyRefs": [
+          "S-005"
+        ],
+        "reqRefs": [
+          "R-009"
+        ],
+        "storageLocation": "Audit log store",
+        "encryptionRequired": "At rest and in transit",
+        "maskingRule": "Truncate final octet in any exported report",
+        "retentionPolicy": "Retain 7 years, then purge",
+        "accessRoles": [
+          "IT Admin"
+        ],
+        "notes": "Captured for audit; is an identifier in its own right and must be retained under the same controls."
+      },
+      {
+        "dataElementId": "DC-013",
+        "dataElementName": "Audit event actor and timestamp",
+        "fieldOrColumn": "audit_log.actor_id, actor_role, action, target_id, occurred_at",
+        "classification": "PII - Indirect Identifier",
+        "hipaaIdentifierCategory": "18 - Any other unique identifying number or code",
+        "storyRefs": [
+          "S-005"
+        ],
+        "reqRefs": [
+          "R-009"
+        ],
+        "storageLocation": "Append-only audit log store",
+        "encryptionRequired": "At rest and in transit",
+        "maskingRule": "No masking; access restricted instead",
+        "retentionPolicy": "Retain 7 years, then purge",
+        "accessRoles": [
+          "IT Admin",
+          "HR Coordinator"
+        ],
+        "notes": "Behavioural record of a named individual. Immutable and separately access-controlled."
+      },
+      {
+        "dataElementId": "DC-014",
+        "dataElementName": "Device identifier / asset serial",
+        "fieldOrColumn": "equipment_request.device_serial, asset_tag",
+        "classification": "PII - Indirect Identifier",
+        "hipaaIdentifierCategory": "13 - Device identifiers and serial numbers",
+        "storyRefs": [
+          "S-004"
+        ],
+        "reqRefs": [
+          "R-005",
+          "R-006"
+        ],
+        "storageLocation": "Portal equipment tables",
+        "encryptionRequired": "In transit",
+        "maskingRule": "Not masked",
+        "retentionPolicy": "Delete 3 years after asset return",
+        "accessRoles": [
+          "IT Admin",
+          "Manager"
+        ],
+        "notes": "Becomes an identifier once linked to an assigned employee."
+      },
+      {
+        "dataElementId": "DC-015",
+        "dataElementName": "Onboarding task completion status",
+        "fieldOrColumn": "tasks.status, tasks.due_date, tasks.completed_at",
+        "classification": "Non-Sensitive - Business Data",
+        "hipaaIdentifierCategory": "Not an identifier on its own",
+        "storyRefs": [
+          "S-002",
+          "S-006"
+        ],
+        "reqRefs": [
+          "R-002",
+          "R-007"
+        ],
+        "storageLocation": "Portal task tables",
+        "encryptionRequired": "In transit",
+        "maskingRule": "Not masked",
+        "retentionPolicy": "Delete 7 years after termination",
+        "accessRoles": [
+          "HR Coordinator",
+          "Manager"
+        ],
+        "notes": "Becomes personal data only when joined to a named new hire."
+      },
+      {
+        "dataElementId": "DC-016",
+        "dataElementName": "Health, disability or benefits enrolment data",
+        "fieldOrColumn": "NOT IN CURRENT SCOPE",
+        "classification": "Potential PHI - Out of Scope",
+        "hipaaIdentifierCategory": "8, 9 - Medical record and health plan beneficiary numbers",
+        "storyRefs": [],
+        "reqRefs": [],
+        "storageLocation": "Not stored",
+        "encryptionRequired": "Would require field-level encryption",
+        "maskingRule": "Would require full masking outside benefits administrators",
+        "retentionPolicy": "Would follow HIPAA retention rules",
+        "accessRoles": [
+          "Benefits Administrator (role does not exist yet)"
+        ],
+        "notes": "Placeholder. If benefits enrolment, accommodation requests or occupational health data is ever added, that data is PHI under a group health plan and pulls this system into HIPAA scope."
+      }
+    ],
+    "handlingRules": [
+      "No element classified Sensitive PII may appear in application logs, error messages, URLs or analytics events.",
+      "Identity and tax documents are stored as encrypted blobs only; no field extraction into the application database without a separate approved design.",
+      "Every read of a Sensitive PII element must itself generate an audit entry naming the reader (extends R-009).",
+      "Non-production environments use synthetic data only; production documents are never copied to test.",
+      "Any export or report leaving the portal applies the maskingRule defined for each element.",
+      "Retention timers start at termination date and are enforced by an automated purge job, not manual deletion."
+    ],
+    "openQuestions": [
+      "Is the SSN required to be stored at all, or is verify-and-discard acceptable for tax documents?",
+      "Which single role owns the purge job and confirms deletion actually completed?",
+      "Will benefits enrolment be added to this portal in a later phase, bringing PHI and HIPAA into scope?"
+    ]
+  }
+}

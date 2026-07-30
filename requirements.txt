@@ -1,0 +1,6 @@
+streamlit
+pydantic
+anthropic
+sqlalchemy
+python-dotenv
+sqlglot
