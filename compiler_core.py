@@ -112,11 +112,12 @@ def _call_anthropic(client: Anthropic, system_prompt: str, user_prompt: str) -> 
         try:
             response = client.messages.create(
                 model=model,
-                max_tokens=4096,
+                max_tokens=8192,
                 system=system_prompt,
                 messages=[
                     {"role": "user", "content": user_prompt}
-                ]
+                ],
+                extra_headers={"anthropic-beta": "max-tokens-3-5-sonnet-2024-07-15"}
             )
             
             response_text = ""

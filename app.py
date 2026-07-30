@@ -103,41 +103,60 @@ elif st.session_state.get("compliant_ir"):
 
 # Always render the tabs!
 tab1, tab2, tab3, tab4, tab5 = st.tabs([
-    "Tab 1: 📥 Ingestion & DAG", 
-    "Tab 2: SQL DDL", 
-    "Tab 3 (Skipped)", 
-    "Tab 4 (Skipped)", 
-    "Tab 5: 🛡️ Static Analysis"
+    "Phase 1: DAG", 
+    "Phase 2-3: IR & Governance", 
+    "Phase 3.5: Semantic Tagging", 
+    "Phase 5: SQL AST", 
+    "Phase 5: Static Analysis"
 ])
 
 with tab1:
-    st.header("JSON Intermediate Representation & DAG")
-    st.markdown("Phase 1 Output (Topological Sort) and Phase 2 & 3 (Canonical IR)")
-    if st.session_state.get("sorted_stories") and st.session_state.get("compliant_ir"):
+    st.header("Phase 1: BRD Validation & DAG")
+    st.markdown("Topologically sorts user stories based on dependencies to ensure correct entity processing order.")
+    if st.session_state.get("sorted_stories"):
         st.success("✅ BRD Validated & Topologically Sorted")
         mermaid_code = generate_mermaid_dag(st.session_state.get("sorted_stories"))
         st.markdown(f"```mermaid\n{mermaid_code}\n```")
-        st.json(st.session_state.get("compliant_ir").model_dump())
     else:
         st.info("Run the pipeline to generate this data.")
         
 with tab2:
-    st.header("Compiled SQL DDL")
-    st.markdown("Phase 5 Output (PostgreSQL AST compiled via SQLAlchemy)")
+    st.header("Phase 2-3: Canonical IR & Governance")
+    st.markdown("Multi-agent extraction of domain entities, deduplication, and deterministic injection of audit columns (`id`, `created_at`, etc.).")
+    if st.session_state.get("compliant_ir"):
+        st.success("✅ Canonical IR Generated & Governed")
+        st.json(st.session_state.get("compliant_ir").model_dump())
+    else:
+        st.info("Run the pipeline to generate this data.")
+        
+with tab3:
+    st.header("Phase 3.5: Semantic Tagging (PII/HIPAA)")
+    st.markdown("AI compliance officer identifies sensitive columns and applies `@pii_masked` or `@hipaa_classified` metadata.")
+    if st.session_state.get("compliant_ir"):
+        st.success("✅ Semantic Tagging Applied")
+        tagged_cols = []
+        for t in st.session_state.get("compliant_ir").tables:
+            for c in t.columns:
+                if c.compliance_tags:
+                    tagged_cols.append({"Table": t.name, "Column": c.name, "Tags": ", ".join(c.compliance_tags)})
+        if tagged_cols:
+            st.table(tagged_cols)
+        else:
+            st.info("No sensitive columns detected.")
+    else:
+        st.info("Run the pipeline to generate this data.")
+        
+with tab4:
+    st.header("Phase 5: Compiled SQL AST (DDL)")
+    st.markdown("Compiles the Intermediate Representation into deployment-ready PostgreSQL DDL with inline compliance comments.")
     if st.session_state.get("sql_ddl"):
         st.code(st.session_state.get("sql_ddl"), language="sql")
     else:
         st.info("Run the pipeline to generate this data.")
         
-with tab3:
-    st.write("Tab 3 skipped for this sprint to ensure core stability.")
-    
-with tab4:
-    st.write("Tab 4 skipped for this sprint to ensure core stability.")
-    
 with tab5:
-    st.header("Static Analysis Linter")
-    st.markdown("Phase 5 Output (SQL Syntax and Integrity Checks)")
+    st.header("Phase 5: Static Analysis Linter")
+    st.markdown("Verifies PostgreSQL syntax, relational integrity, and foreign key validations.")
     linter_res = st.session_state.get("linter_results")
     if linter_res is not None:
         if linter_res["status"] == "Pass":

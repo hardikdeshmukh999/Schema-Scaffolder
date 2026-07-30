@@ -1,5 +1,23 @@
 # Enterprise Schema Scaffolder - Documentation
 
+## Pipeline Flowchart
+
+```mermaid
+flowchart TD
+    A[BRD JSON Input] --> B[Phase 1: Validate & Topologically Sort BRD]
+    B --> C[Phase 2: Generate Canonical IR]
+    subgraph Phase 2: Multi-Agent Architecture
+        C --> C1[Extractor Agents]
+        C1 --> C2[Deduplicator Agent]
+        C2 --> C3[Modeler Agent]
+    end
+    C3 --> D[Phase 3: Inject Enterprise Governance Columns]
+    D --> E[Phase 3.5: Semantic Tagging PII/HIPAA]
+    E --> F[Phase 5: Compile SQL AST & Static Analysis Linter]
+    F --> G[Validated PostgreSQL DDL]
+```
+
+
 ## 1. Project Overview
 
 ### Goal & Purpose
