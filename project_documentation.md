@@ -41,10 +41,12 @@ Based on the provided SDLC accelerator diagram, the Enterprise Schema Scaffolder
       "dependencies": ["Blocks S-001"]
     }
     ```
-  - *Output (Mermaid DAG Snippet)*:
-    ```mermaid
-    graph LR;
-        S002["S-002: Profile Creation"] --> S001["S-001: Login System"]
+  - *Output (Topological Sort Array Snippet)*:
+    ```json
+    [
+      { "id": "S-001", "userStory": "Login System details..." },
+      { "id": "S-002", "userStory": "Profile Creation details..." }
+    ]
     ```
 - **Advantage**: Prevents AI hallucinations and missing references by supplying context in a structured, hierarchical manner rather than a flat list.
 - **Why in this case**: An LLM processing a "Login" story before a "User Registration" story might fail to link the User entity correctly. Topological sorting guarantees structural integrity.
