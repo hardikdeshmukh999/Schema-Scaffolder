@@ -132,7 +132,16 @@ Based on the provided SDLC accelerator diagram, the Enterprise Schema Scaffolder
   - Verifies indexing strategies (Check 3).
 - **Purpose**: Transforms the intermediate format into deployment-ready code and mathematically validates its execution safety.
 - **Input / Output Example**: 
-  - *Input (IRSchema)*: The fully tagged JSON schema.
+  - *Input (IRSchema JSON Snippet)*: 
+    ```json
+    {
+      "name": "medical_document",
+      "columns": [
+        { "name": "id", "data_type": "uuid", "is_primary_key": true },
+        { "name": "social_security_number", "data_type": "string", "compliance_tags": ["@pii_masked"] }
+      ]
+    }
+    ```
   - *Output (PostgreSQL DDL & Linter)*:
     ```sql
     CREATE TABLE medical_document (
