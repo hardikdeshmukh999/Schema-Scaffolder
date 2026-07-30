@@ -96,9 +96,9 @@ if st.button("Run Scaffolder Pipeline", type="primary"):
             st.session_state.error = f"Pipeline execution failed: {str(e)}"
 
 # Error handling
-if st.session_state.error:
-    st.error(st.session_state.error)
-elif st.session_state.compliant_ir:
+if st.session_state.get("error"):
+    st.error(st.session_state.get("error"))
+elif st.session_state.get("compliant_ir"):
     st.success("Pipeline executed successfully!")
 
 # Always render the tabs!
@@ -113,19 +113,19 @@ tab1, tab2, tab3, tab4, tab5 = st.tabs([
 with tab1:
     st.header("JSON Intermediate Representation & DAG")
     st.markdown("Phase 1 Output (Topological Sort) and Phase 2 & 3 (Canonical IR)")
-    if st.session_state.sorted_stories and st.session_state.compliant_ir:
+    if st.session_state.get("sorted_stories") and st.session_state.get("compliant_ir"):
         st.success("✅ BRD Validated & Topologically Sorted")
-        mermaid_code = generate_mermaid_dag(st.session_state.sorted_stories)
+        mermaid_code = generate_mermaid_dag(st.session_state.get("sorted_stories"))
         st.markdown(f"```mermaid\n{mermaid_code}\n```")
-        st.json(st.session_state.compliant_ir.model_dump())
+        st.json(st.session_state.get("compliant_ir").model_dump())
     else:
         st.info("Run the pipeline to generate this data.")
         
 with tab2:
     st.header("Compiled SQL DDL")
     st.markdown("Phase 5 Output (PostgreSQL AST compiled via SQLAlchemy)")
-    if st.session_state.sql_ddl:
-        st.code(st.session_state.sql_ddl, language="sql")
+    if st.session_state.get("sql_ddl"):
+        st.code(st.session_state.get("sql_ddl"), language="sql")
     else:
         st.info("Run the pipeline to generate this data.")
         
@@ -138,12 +138,13 @@ with tab4:
 with tab5:
     st.header("Static Analysis Linter")
     st.markdown("Phase 5 Output (SQL Syntax and Integrity Checks)")
-    if getattr(st.session_state, "linter_results", None) is not None:
-        if st.session_state.linter_results["status"] == "Pass":
+    linter_res = st.session_state.get("linter_results")
+    if linter_res is not None:
+        if linter_res["status"] == "Pass":
             st.success("Linter Passed")
         else:
             st.error("Linter Failed")
-        log_text = "\n".join(st.session_state.linter_results["logs"])
+        log_text = "\n".join(linter_res["logs"])
         st.code(log_text, language="text")
     else:
         st.info("Run the pipeline to generate this data.")
