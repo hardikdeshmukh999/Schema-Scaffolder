@@ -57,7 +57,13 @@ Based on the provided SDLC accelerator diagram, the Enterprise Schema Scaffolder
   - Runs a **"Modeler"** AI agent to map the unique entities into a strict Pydantic Intermediate Representation (`IRSchema`).
 - **Purpose**: Bridges the gap between natural language business requirements and strict data architecture.
 - **Input / Output Example**: 
-  - *Input (User Story Text)*: "As a patient, I want to upload a medical document so my doctor can review it."
+  - *Input (Topologically Sorted Story JSON)*: 
+    ```json
+    {
+      "id": "S-003",
+      "userStory": "As a patient, I want to upload a medical document so my doctor can review it."
+    }
+    ```
   - *Output (IRSchema JSON Snippet)*:
     ```json
     {
